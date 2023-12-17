@@ -28,6 +28,12 @@
     <Filter Include="Resource Files\save_folder_1">
       <UniqueIdentifier>{5de28730-75f2-4113-aebb-e63912d2bf1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\save_folder_2">
+      <UniqueIdentifier>{8af60466-07d9-4a65-8698-c1ab34af3064}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\save_folder_3">
+      <UniqueIdentifier>{de769f46-d036-442b-91d2-ec5219ffdf53}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -102,6 +108,24 @@
     </Text>
     <Text Include="readers_data_1.txt">
       <Filter>Resource Files\save_folder_1</Filter>
+    </Text>
+    <Text Include="books_data_2.txt">
+      <Filter>Resource Files\save_folder_2</Filter>
+    </Text>
+    <Text Include="readers_data_2.txt">
+      <Filter>Resource Files\save_folder_2</Filter>
+    </Text>
+    <Text Include="borrow_forms_data_2.txt">
+      <Filter>Resource Files\save_folder_2</Filter>
+    </Text>
+    <Text Include="books_data_3.txt">
+      <Filter>Resource Files\save_folder_3</Filter>
+    </Text>
+    <Text Include="readers_data_3.txt">
+      <Filter>Resource Files\save_folder_3</Filter>
+    </Text>
+    <Text Include="borrow_forms_data_3.txt">
+      <Filter>Resource Files\save_folder_3</Filter>
     </Text>
   </ItemGroup>
 </Project>
