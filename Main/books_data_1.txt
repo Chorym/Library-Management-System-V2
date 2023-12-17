@@ -1,0 +1,9 @@
+8
+9780451524935,To Kill a Mockingbird,Harper Lee,J.B. Lippincott & Co.,1960,Fiction,15,10.
+9780061120084,1984,George Orwell,Harcourt Brace Jovanovich,1949,Dystopian Fiction,50,8.
+9780142407332,The Giver,Lois Lowry,Houghton Mifflin,1993,Young Adult,99,15.
+9780060929879,The Alchemist,Paulo Coelho,HarperOne,1988,Fiction,30,12.
+9780345391803,Brave New World,Aldous Huxley,Harper & Brothers,1932,Science Fiction,75,20.
+9781400034770,The Great Gatsby,F. Scott Fitzgerald,Scribner,1925,Classic,105,18.
+9780316769480,The Catcher in the Rye,J.D. Salinger,Brown and Company,1951,Fiction,45,25.
+9780743273565,The Kite Runner,Khaled Hosseini,Riverhead Books,2003,Fiction,169,30.
