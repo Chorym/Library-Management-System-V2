@@ -1,0 +1,22 @@
+reader
+7
+20230001,123456101111,Doe,John,1,25121980,johndoe@email.com,123 Main St,01012022,01012026,0.
+20230002,123456111111,Smith,Jane,2,10101995,janesmith@email.com,456 Oak St,15022022,15022026,0.
+20230003,123456121111,Johnson,Robert,1,03051987,robertjohnson@email.com,789 Pine St,01042022,01042026,0.
+20230004,123456131111,Williams,Alice,2,29022000,alicewilliams@email.com,321 Elm St,10032022,10032026,0.
+20230005,123456141111,Miller,Michael,1,17041978,michaelmiller@email.com,654 Birch St,20012022,20012026,0.
+20230006,123456151111,Brown,Emily,2,12061989,emilybrown@email.com,987 Cedar St,05032022,05032026,0.
+20230007,123456161111,Davis,Christopher,1,05011993,christopherdavis@email.com,789 Maple St,15042022,15042026,0.
+
+books
+7
+9780451524935,To Kill a Mockingbird,Harper Lee,J.B. Lippincott & Co.,1960,Fiction,15,10.
+9780061120084,1984,George Orwell,Harcourt Brace Jovanovich,1949,Dystopian Fiction,50,8.
+9780142407332,The Giver,Lois Lowry,Houghton Mifflin,1993,Young Adult,99,15.
+9780060929879,The Alchemist,Paulo Coelho,HarperOne,1988,Fiction,30,12.
+9780345391803,Brave New World,Aldous Huxley,Harper & Brothers,1932,Science Fiction,75,20.
+9781400034770,The Great Gatsby,F. Scott Fitzgerald,Scribner,1925,Classic,105,18.
+9780316769480,The Catcher in the Rye,J.D. Salinger,Brown and Company,1951,Fiction,45,25.
+
+form
+0

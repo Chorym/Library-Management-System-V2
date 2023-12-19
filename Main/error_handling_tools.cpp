@@ -6,71 +6,64 @@ using std::cout;
 //not done, some value and user format are missing
 void handle_add_reader_error(int error_case)
 {
+	set_cursor_position(33, 3 + error_case);
 	switch (error_case)
 	{
 	case 0:
 	{
-		set_cursor_position(33, 3);
 		cout << "|Cit. ID :                                                         |" << "\n";
 		cout << "\n\n\n\n\n\n\n\n\n\n";
-		cout << "|                                |                   ~~~ Error: Invalid value! ~~                   |" << "\n";
-		cout << "\r|-------------------------------------------\x1b[12A"; break;
+		cout << "|                                |                   ~~~ Error: Invalid value ~~~                   |" << "\n";
+		cout << "\r|-------------------------------------------\x1b[12A";
+		break;
 	}
 	case 1:
 	{
-		cout << "\x1b[1A";
-		cout << "|                                |Surname :                                                         |" << "\n";
+		cout << "|Surname :                                                         |" << "\n";
 		cout << "\n\n\n\n\n\n\n\n\n";
-		cout << "|                                |                   ~~~ Error: Invalid value! ~~                   |" << "\n";
-		cout << "\r|-------------------------------------------\x1b[11A"; break;
+		cout << "|                                |                   ~~~ Error: Invalid value ~~~                   |" << "\n";
+		cout << "\r|-------------------------------------------\x1b[11A"; 
+		break;
 	}
 	case 2:
 	{
-		cout << "\x1b[1A";
-		cout << "|                                |Name    :                                                         |" << "\n";
+		cout << "|Name    :                                                         |" << "\n";
 		cout << "\n\n\n\n\n\n\n\n";
-		cout << "|                                |                   ~~~ Error: Invalid value! ~~                   |" << "\n";
-		cout << "\r|-------------------------------------------\x1b[10A"; break;
+		cout << "|                                |                   ~~~ Error: Invalid value ~~~                   |" << "\n";
+		cout << "\r|-------------------------------------------\x1b[10A"; 
+		break;
 	}
 	case 3:
 	{
-		cout << "\x1b[1A";
-		cout << "|                                |Sex     :                                                         |" << "\n";
+		cout << "|Sex     :                                                         |" << "\n";
 		cout << "\n\n\n\n\n\n\n";
-		cout << "|                                | 1: Male / 2: Female         ~~~ Error: Invalid value! ~~         |" << "\n";
-		cout << "\r|-------------------------------------------\x1b[9A"; break;
+		cout << "|                                | 1: Male / 2: Female         ~~~ Error: Invalid value ~~~         |" << "\n";
+		cout << "\r|-------------------------------------------\x1b[9A";
+		break;
 	}
 	case 4:
 	{
-		cout << "\x1b[1A";
-		cout << "|                                |Email   :                                                         |" << "\n";
+		cout << "|Email   :                                                         |" << "\n";
 		cout << "\n\n\n\n\n\n";
-		cout << "|                                | ~~~ @gmail only! ~~~         ~~~ Error: Invalid value! ~~        |" << "\n";
-		cout << "\r|-------------------------------------------\x1b[8A"; break;
+		cout << "|                                | ~~~ @gmail only! ~~~         ~~~ Error: Invalid value ~~~        |" << "\n";
+		cout << "\r|-------------------------------------------\x1b[8A";
+		break;
 	}
 	case 5:
 	{
-		cout << "\x1b[1A";
-		cout << "|--------------------------------|Date of birth :                                                   |" << "\n";
+		cout << "|Date of birth :                                                   |" << "\n";
 		cout << "\n\n\n\n\n";
-		cout << "|                                | dd/mm/yyy              ~~~ Error: Invalid value! ~~              |" << "\n";
-		cout << "\r|-------------------------------------------------\x1b[7A"; break;
+		cout << "|                                | Format: dd/mm/yyyy         ~~~ Error: Invalid value ~~~          |" << "\n";
+		cout << "\r|-------------------------------------------------\x1b[7A";
+		break;
 	}
 	case 6:
 	{
+		cout << "|Address :                                                         |" << "\n";
 		cout << "\n\n\n";
-		cout << "|--------------------------------\x1b[4A|Card cre. date:                                                   |" << "\n";
-		cout << "\n\n\n\n";
-		cout << "|                                | dd/mm/yyy              ~~~ Error: Invalid value! ~~              |" << "\n";
-		cout << "\r|-------------------------------------------------\x1b[6A"; break;
-	}
-	case 7:
-	{
-		cout << "\n\n";
-		cout << "|--------------------------------\x1b[3A|Address :                                                         |" << "\n";
-		cout << "\n\n\n";
-		cout << "|                                |                   ~~~ Error: Invalid value! ~~                   |" << "\n";
-		cout << "\r|-------------------------------------------\x1b[5A"; break;
+		cout << "|                                |                   ~~~ Error: Invalid value ~~~                   |" << "\n";
+		cout << "\r|-------------------------------------------\x1b[5A"; 
+		break;
 	}
 	}
 }
@@ -110,6 +103,14 @@ void handle_fix_reader_error(int error_case)
 		cout << "|New info :                                                        " << "\n";
 		set_cursor_position(0, 14);
 		cout << "|[1]: Reader ID                  |                   ~~~ Error: Invalid email ~~~                   |" << "\n";
+		set_cursor_position(45, 8); break;
+	}
+	case 7:
+	{
+		set_cursor_position(33, 8);
+		cout << "|New info :                                                        " << "\n";
+		set_cursor_position(0, 14);
+		cout << "|[1]: Reader ID                  |                   ~~~ Error: Invalid data! ~~~                   |" << "\n";
 		set_cursor_position(45, 8); break;
 	}
 	case 10:

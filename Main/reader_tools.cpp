@@ -20,11 +20,11 @@ int find_reader
 )
 {
 	int i = 0;
-	if (input_name[0] != 0)
+	if (input_name != 0)
 	{
 		char full_name[100] = ""; //get surname + name = full name
 		strcpy_s(full_name, 20, list_of_readers[i].surname); strcat_s(full_name, 20, " "); strcat_s(full_name, 20, list_of_readers[i].name);
-		while (list_of_readers[i].surname != 0 && list_of_readers[i].name != 0)
+		while (list_of_readers[i].surname[0] != 0 && list_of_readers[i].name[0] != 0)
 		{
 			if (strcmp(input_name, list_of_readers[i].surname) == 0 || strcmp(input_name, list_of_readers[i].name) == 0 || strcmp(input_name, full_name) == 0)
 			{
@@ -33,9 +33,9 @@ int find_reader
 			i++;
 		}
 	}
-	else if (input_citizen_id[0] != 0)
+	else if (input_citizen_id != 0)
 	{
-		while (list_of_readers[i].citizen_id != 0)
+		while (list_of_readers[i].citizen_id[0] != 0)
 		{
 			if (strcmp(input_citizen_id, list_of_readers[i].citizen_id) == 0)
 			{
@@ -46,7 +46,7 @@ int find_reader
 	}
 	else
 	{
-		while (input_id[0] != 0)
+		while (list_of_readers[i].library_id[0] != 0)
 		{
 			if (strcmp(input_id, list_of_readers[i].library_id) == 0)
 			{
@@ -105,7 +105,7 @@ bool add_reader
 	if (current_amount_of_reader == max_amount_of_reader)
 	{
 		set_cursor_position(0, 9);
-		cout << "|[8]: Next Page    Prev Page :[9]|                   ~~~  Error: Library full ~~~                   |" << "\n";
+		cout << "|                                |                   ~~~  Error: Library full ~~~                   |" << "\n";
 		system("pause");
 		return false;
 	}
@@ -133,7 +133,7 @@ bool add_reader
 	while (amount_of_new_reader > max_amount_of_reader - current_amount_of_reader)
 	{
 		set_cursor_position(0, 14);
-		cout << "|[8]: Next Page    Prev Page :[9]|            ~~~  Error: Exceeding library capacity ~~~            |" << "\n";
+		cout << "|                                |            ~~~  Error: Exceeding library capacity ~~~            |" << "\n";
 		set_cursor_position(0, 11); cout << "|Amount of reader to add:        ";
 		set_cursor_position(26, 11); cin >> amount_of_new_reader;
 	}
@@ -165,7 +165,7 @@ bool add_reader
 
 		//add surname
 		cout << "|                                |Surname : "; cin.getline(input, max_input_length);
-		while (check_if_input_is_pure_text(input) == false)
+		while (check_if_input_is_pure_text(input) == false || input[0] == 0)
 		{
 			handle_add_reader_error(1);
 			cin.getline(input, max_input_length);
@@ -177,7 +177,7 @@ bool add_reader
 
 		//add name
 		cout << "|                                |Name    : "; cin.getline(input, max_input_length);
-		while (check_if_input_is_pure_text(input) == false)
+		while (check_if_input_is_pure_text(input) == false || input[0] == 0)
 		{
 			handle_add_reader_error(2);
 			cin.getline(input, max_input_length);
@@ -208,7 +208,7 @@ bool add_reader
 		}
 		strcpy_s(list_of_readers[i].email, input);
 		set_cursor_position(0, 14);
-		cout << "|                                | dd/mm/yyyy                                                       |" << "\n";
+		cout << "|                                | Format: dd/mm/yyyy                                               |" << "\n";
 		set_cursor_position(0, 8);
 
 		//add birthday
@@ -220,16 +220,17 @@ bool add_reader
 		}
 		strcpy_s(list_of_readers[i].date_of_birth, input);
 		set_cursor_position(0, 14);
-		cout << "|                                | dd/mm/yyyy                                                       |" << "\n";
-		set_cursor_position(0, 9);
+		cout << "|                                |                                                                  |" << "\n";
+		set_cursor_position(0, 10);
 
 		//add address
 		cout << "\r|Library capcity: " << max_amount_of_reader;
-		set_cursor_position(33, 10);
+		set_cursor_position(33, 9);
 		cout << "|Address : "; cin.getline(input, max_input_length);
-		while (false) //handle error when added
+		while (input[0] == 0) 
 		{
-			//handle_add_reader_error(7);
+			handle_add_reader_error(6);
+			cin.getline(input, max_input_length);
 		}
 		strcpy_s(list_of_readers[i].address, input);
 		set_cursor_position(0, 14);
@@ -387,7 +388,7 @@ bool change_reader_info
 		set_cursor_position(33, 7);
 		cout << "|Prev info: " << list_of_readers[reader_number].surname << "\n";
 		cout << "|--------------------------------|New info : "; cin.getline(new_info, max_string_length);
-		while (check_if_input_is_pure_text(new_info) == false)
+		while (check_if_input_is_pure_text(new_info) == false || new_info[0] == 0)
 		{
 			handle_fix_reader_error(fixing_option); cin.getline(new_info, max_string_length);
 		}
@@ -399,7 +400,7 @@ bool change_reader_info
 		set_cursor_position(33, 7);
 		cout << "|Prev info: " << list_of_readers[reader_number].name << "\n";
 		cout << "|--------------------------------|New info : "; cin.getline(new_info, max_string_length);
-		while (check_if_input_is_pure_text(new_info) == false)
+		while (check_if_input_is_pure_text(new_info) == false || new_info[0] == 0)
 		{
 			handle_fix_reader_error(fixing_option); cin.getline(new_info, max_string_length);
 		}
@@ -453,6 +454,10 @@ bool change_reader_info
 		set_cursor_position(33, 7);
 		cout << "|Prev info: " << list_of_readers[reader_number].address << "\n";
 		cout << "|--------------------------------|New info : "; cin.getline(new_info, max_string_length);
+		while (new_info[0] == 0)
+		{
+			handle_fix_reader_error(fixing_option); cin.getline(new_info, max_string_length);
+		}
 		strcpy_s(list_of_readers[reader_number].address, new_info);
 		break;
 	}

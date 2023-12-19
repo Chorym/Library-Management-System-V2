@@ -30,7 +30,7 @@ int find_book
 	}
 	else
 	{
-		while (input_name[0] != 0)
+		while (list_of_books_titles[i].name[0] != 0)
 		{
 			if (strcmp(input_name, list_of_books_titles[i].name) == 0)
 			{

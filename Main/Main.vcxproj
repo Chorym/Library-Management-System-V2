@@ -47,6 +47,7 @@
     <Text Include="books_data_1.txt" />
     <Text Include="borrow_forms_data_1.txt" />
     <Text Include="readers_data_1.txt" />
+    <Text Include="temp.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

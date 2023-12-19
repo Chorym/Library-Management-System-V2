@@ -109,5 +109,8 @@
     <Text Include="readers_data_1.txt">
       <Filter>Resource Files\save_folder_1</Filter>
     </Text>
+    <Text Include="temp.txt">
+      <Filter>Resource Files\save_folder_1</Filter>
+    </Text>
   </ItemGroup>
 </Project>

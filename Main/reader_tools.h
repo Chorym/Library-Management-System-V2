@@ -5,7 +5,7 @@ void view_list_of_reader
 (
 	reader list_of_readers[],
 	borrowing_book_form list_of_forms_for_borrowing[],
-	int  page_number
+	int page_number
 );
 
 bool add_reader
