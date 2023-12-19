@@ -8,19 +8,19 @@ void view_list_of_reader
 	int  page_number
 );
 
-void add_reader
+bool add_reader
 (
 	reader list_of_readers[],
 	int  current_amount_of_reader,
 	int  max_amount_of_reader
 );
 
-void change_reader_info
+bool change_reader_info
 (
 	reader list_of_readers[]
 );
 
-void delete_reader_menu
+bool delete_reader_menu
 (
 	reader list_of_readers[],
 	int  current_amount_of_reader

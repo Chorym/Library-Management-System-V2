@@ -1,4 +1,4 @@
-#include <iostream>
+#include "std_library_used.h"
 #include "prefab_type.h"
 #include "basic_tools.h"
 #include "reader_tools.h"
@@ -46,7 +46,7 @@ void view_all_borrowings
 //if the reader want to borrow less than 3, enter 0 into the input
 //afterwards, enter the borrow date (current date) and an expected return date
 //a form is generated with a random id, holding all of the above information
-void borrow_books
+bool borrow_books
 (
 	reader list_of_readers[],
 	book_title list_of_books_titles[],
@@ -91,7 +91,7 @@ void borrow_books
 	//get reader
 	set_cursor_position(18, 3);
 	cin.getline(input, max_input_length);
-	if (strcmp(input, "0") == 0) return;
+	if (strcmp(input, "0") == 0) return false;
 	reader_number = find_reader(list_of_readers, input, 0, 0);
 	while (reader_number == -1)
 	{
@@ -159,16 +159,10 @@ void borrow_books
 	}
 	
 	//get borrow date
-	set_cursor_position(0, 4);
-	cout << "|Borrow date: ";
-	cin.getline(input, max_input_length);
-	while (check_date_validity(input) == false) //check date
-	{
-		handle_add_form_error(4, 0);
-		cin.getline(input, max_input_length);
-	}
-	strcpy_s(list_of_forms_for_borrowing[current_amount_of_forms].borrow_date, input);
-	int borrow_day = convert_date_to_day(input);
+	char current_date[11];
+	get_system_time(current_date, 0);
+	strcpy_s(list_of_forms_for_borrowing[current_amount_of_forms].borrow_date, current_date);
+	int borrow_day = convert_date_to_day(current_date);
 
 	//get expected return date
 	set_cursor_position(37, 4);
@@ -229,6 +223,7 @@ void borrow_books
 	set_cursor_position(0, 10);
 	cout << "|                                    |                     ~~~ Form created ~~~                     |" << "\n\n"; //line 10
 	cin.ignore();
+	return true;
 }
 
 //user starts by entering a form id, created by borrow books function
@@ -238,7 +233,7 @@ void borrow_books
 //if the return date is 7 days or more than the borrow date in the form, a fine is made
 //total fine (if there is one) is made by adding the fine from the lost books and late return date
 //fine is then returned and displayed in the reader management menu
-void return_books
+bool return_books
 (
 	reader list_of_readers[],
 	book_title list_of_books_titles[],
@@ -259,12 +254,26 @@ void return_books
 	const int max_string_length = 11;
 	char input[11];
 
+	if (list_of_forms_for_borrowing[0].form_id[0] == 0)
+	{
+		system("cls");
+		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; 
+		cout << "|                                      ~~~ Returning books ~~~                                      |" << "\n"; 
+		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; 
+		cout << "|                                                                                                   |" << "\n"; 
+		cout << "|                                 ~~~ Nobody is borrowing books ~~~                                 |" << "\n"; 
+		cout << "|                                                                                                   |" << "\n"; 
+		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; 
+		system("pause");
+		return false;
+	}
+
 	system("cls");
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 0
 	cout << "|                                      ~~~ Returning books ~~~                                      |" << "\n"; //line 1
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 2
 	cout << "|[0]: Return to main menu        |Enter Form ID:                                                    |" << "\n"; //line 3
-	cout << "|                                |Return date  :                                                    |" << "\n"; //line 4
+	cout << "|                                |Today :                                                           |" << "\n"; //line 4
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 5
 	cout << "|                                |                                                                  |" << "\n"; //line 6
 	cout << "|                                |                                                                  |" << "\n"; //line 7
@@ -278,7 +287,7 @@ void return_books
 	int i = 0;
 	while (true)
 	{
-		if (strcmp(input, "0") == 0) return;
+		if (strcmp(input, "0") == 0) return false;
 		if (i == current_amount_of_forms + 1)
 		{
 			i = 0;
@@ -301,31 +310,15 @@ void return_books
 	strcpy_s(borrow_day, list_of_forms_for_borrowing[form_number].borrow_date);
 	
 	//get return day
-	int return_day = 0;
-	bool checked = false;
-	set_cursor_position(49, 4); cin.getline(input, max_string_length);
-	while (!checked)
-	{
-		if (check_date_validity(input) == false)
-		{
-			handle_return_form_error(1);
-			cin.getline(input, max_string_length);
-			continue;
-		}
-		int return_day = convert_date_to_day(input);
-		if (return_day - convert_str_number_to_int_number(borrow_day) < 0)
-		{
-			handle_return_form_error(1); 
-			cin.getline(input, max_string_length);
-			continue;
-		}
-		checked = true;
-	}
+	char current_date[11];
+	get_system_time(current_date, 0);
+	set_cursor_position(42, 4);
+	cout << current_date;
 
 	//check if return if overdue
-	if (find_distance_between_2_dates(input, borrow_day) > 7)
+	if (find_distance_between_2_dates(current_date, borrow_day) > 7)
 	{
-		days_overdue = find_distance_between_2_dates(input, borrow_day) - 7;
+		days_overdue = find_distance_between_2_dates(current_date, borrow_day) - 7;
 		fine += 5 * days_overdue;
 	}
 
@@ -397,6 +390,7 @@ void return_books
 		strcpy_s(list_of_forms_for_borrowing[i].borrow_date, list_of_forms_for_borrowing[i + 1].borrow_date);
 		strcpy_s(list_of_forms_for_borrowing[i].expected_return_date, list_of_forms_for_borrowing[i + 1].expected_return_date);
 	}
+	return true;
 }
 
 //accepts a reader library id

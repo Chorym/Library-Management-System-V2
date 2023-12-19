@@ -1,5 +1,4 @@
-#include <iostream>
-#include <conio.h>
+#include "std_library_used.h"
 #include "load_save_tools.h"
 #include "prefab_type.h"
 #include "menus.h"
@@ -19,14 +18,9 @@ int main()
 	book_title list_of_books_titles[max_book_title_amount] = {};
 	borrowing_book_form list_of_forms_for_borrowing[max_forms_amount] = {};
 
-	char reader_file[19];
-	char book_file[17];
-	char borrow_form_file[24];
-
-	choose_save_slot(reader_file, book_file, borrow_form_file);
-	load_all_readers(reader_file, list_of_readers);
-	load_all_books(book_file, list_of_books_titles);
-	//load_all_borrow_forms();
+	load_all_readers("readers_data_1.txt", list_of_readers);
+	load_all_books("books_data_1.txt", list_of_books_titles);
+	load_all_borrow_forms("borrow_forms_data_1.txt", list_of_forms_for_borrowing);
 	
 	while (true)
 	{
@@ -51,7 +45,11 @@ int main()
 		switch (option)
 		{
 		case 0:
-			if(save_all_readers(reader_file, list_of_readers) == false || save_all_books(book_file, list_of_books_titles) == false)
+			if  ( 
+				save_all_readers("readers_data_1.txt", list_of_readers) == false || 
+				save_all_books("books_data_1.txt", list_of_books_titles) == false || 
+				save_all_borrow_forms("borrow_forms_data_1.txt", list_of_forms_for_borrowing) == false
+				)
 			{
 				cout << "save failed, continuing program...";
 				std::cin.ignore();

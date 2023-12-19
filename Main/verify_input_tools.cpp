@@ -1,5 +1,4 @@
-#include <string.h>
-#include <ctype.h>
+#include "std_library_used.h"
 #include "prefab_type.h"
 #include "book_tools.h"
 

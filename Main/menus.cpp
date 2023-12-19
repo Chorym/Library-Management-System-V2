@@ -1,5 +1,5 @@
-#include <iostream>
-#include <conio.h>
+#include "std_library_used.h"
+#include "load_save_tools.h"
 #include "prefab_type.h"
 #include "basic_tools.h"
 #include "reader_tools.h"
@@ -57,29 +57,32 @@ void reader_menu
 		case 0:
 			return;
 		case 1:
-			add_reader
+			if (add_reader
 			(
 				list_of_readers,
 				current_amount_of_reader,
 				max_reader_amount
-			);  break;
+			)) save_all_readers("readers_data_1.txt", list_of_readers);
+			break;
 		case 2:
-			change_reader_info
+			if (change_reader_info
 			(
 				list_of_readers
-			);  break;
+			)) save_all_readers("readers_data_1.txt", list_of_readers);
+			break;
 		case 3:
-			delete_reader_menu
+			if (delete_reader_menu
 			(
 				list_of_readers,
 				current_amount_of_reader
-			);  break;
+			)) save_all_readers("readers_data_1.txt", list_of_readers);
+			break;
 		case 4:
 			find_reader_menu
 			(
 				list_of_readers,
 				list_of_forms_for_borrowing
-			);  break;
+			); break;
 		case 8:
 			page_number++;
 			i = page_number * 4;
@@ -147,23 +150,26 @@ void book_menu
 		case 0:
 			return;
 		case 1:
-			add_book
+			if (add_book
 			(
 				list_of_books_titles,
 				max_book_title_amount,
 				current_amount_of_book
-			);  break;
+			)) save_all_books("books_data_1.txt", list_of_books_titles);
+			break;
 		case 2:
-			change_book_info
+			if (change_book_info
 			(
 				list_of_books_titles
-			);  break;
+			)) save_all_books("books_data_1.txt", list_of_books_titles);
+			break;
 		case 3:
-			delete_book_menu
+			if (delete_book_menu
 			(
 				list_of_books_titles,
 				current_amount_of_book
-			);  break;
+			)) save_all_books("books_data_1.txt", list_of_books_titles);
+			break;
 		case 4:
 			find_book_menu
 			(
@@ -233,22 +239,22 @@ void borrow_books_menu
 		case 0:
 			return;
 		case 1:
-			borrow_books
+			if (borrow_books
 			(
 				list_of_readers,
 				list_of_books_titles,
 				list_of_forms_for_borrowing,
 				current_amount_of_forms
-			);
+			)) save_all_borrow_forms("borrow_forms_data_1.txt", list_of_forms_for_borrowing);
 			break;
 		case 2:
-			return_books
+			if (return_books
 			(
 				list_of_readers,
 				list_of_books_titles,
 				list_of_forms_for_borrowing,
 				current_amount_of_forms
-			);
+			)) save_all_borrow_forms("borrow_forms_data_1.txt", list_of_forms_for_borrowing);
 			break;
 		case 8:
 			page_number++;

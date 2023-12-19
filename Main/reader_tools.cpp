@@ -1,6 +1,4 @@
-#include <iostream>
-#include <conio.h>
-#include <string.h>
+#include "std_library_used.h"
 #include "prefab_type.h"
 #include "basic_tools.h"
 #include "error_handing_tools.h"
@@ -92,7 +90,7 @@ void view_list_of_reader
 //add n number of reader, the number is chosen by the user
 //slowly add every infomation, with input check to verify that it is valid
 //if there is no more space, simply return to display menu
-void add_reader
+bool add_reader
 (
 	reader list_of_readers[],
 	int  current_amount_of_reader,
@@ -109,7 +107,7 @@ void add_reader
 		set_cursor_position(0, 9);
 		cout << "|[8]: Next Page    Prev Page :[9]|                   ~~~  Error: Library full ~~~                   |" << "\n";
 		system("pause");
-		return;
+		return false;
 	}
 
 	const int max_input_length = 50;
@@ -117,21 +115,21 @@ void add_reader
 	int amount_of_new_reader = 0;
 	bool valid_info = true;
 
-	cout << "|[0]: Return to main menu        |Cit. ID :                                                         |" << "\n"; // line 4
-	cout << "|                                |Surname :                                                         |" << "\n"; // line 5
-	cout << "|                                |Name    :                                                         |" << "\n"; // line 6
-	cout << "|                                |Sex     :                                                         |" << "\n"; // line 7
-	cout << "|                                |Email   :                                                         |" << "\n"; // line 8
-	cout << "|--------------------------------|Date of birth :                                                   |" << "\n"; // line 9
-	cout << "                                 |Card cre. date:                                                   |" << "\r|Current amount of reader: " << current_amount_of_reader << "\n"; // line 10
-	cout << "                                 |Address :                                                         |" << "\r|Library capcity: " << max_amount_of_reader << "\n"; // line 11
-	cout << "|Amount of reader to add:        |                                                                  |" << "\n"; // line 12
-	cout << "|Current count:                  |                                                                  |" << "\n"; // line 13
+	cout << "|[0]: Return to main menu        |Cit. ID :                                                         |" << "\n"; 
+	cout << "|                                |Surname :                                                         |" << "\n"; 
+	cout << "|                                |Name    :                                                         |" << "\n"; 
+	cout << "|                                |Sex     :                                                         |" << "\n"; 
+	cout << "|                                |Email   :                                                         |" << "\n"; 
+	cout << "|--------------------------------|Date of birth :                                                   |" << "\n"; 
+	cout << "                                 |Address :                                                         |" << "\r|Current amount of reader: " << current_amount_of_reader << "\n"; 
+	cout << "                                 |                                                                  |" << "\r|Library capcity: " << max_amount_of_reader << "\n"; 
+	cout << "|Amount of reader to add:        |                                                                  |" << "\n"; 
+	cout << "|Current count:                  |                                                                  |" << "\n"; 
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
 	cout << "|                                |                                                                  |" << "\n";
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
 	set_cursor_position(26, 11); cin >> amount_of_new_reader;
-	if (amount_of_new_reader < 1) return;
+	if (amount_of_new_reader < 1) return false;
 	while (amount_of_new_reader > max_amount_of_reader - current_amount_of_reader)
 	{
 		set_cursor_position(0, 14);
@@ -143,15 +141,14 @@ void add_reader
 	for (int i = current_amount_of_reader; i < current_amount_of_reader + amount_of_new_reader; i++)
 	{
 		set_cursor_position(0, 3);
-		cout << "|[0]: Return to main menu        |Cit. ID :                                                         |" << "\n"; // line 4
-		cout << "|                                |Surname :                                                         |" << "\n"; // line 5
-		cout << "|                                |Name    :                                                         |" << "\n"; // line 6
-		cout << "|                                |Sex     :                                                         |" << "\n"; // line 7
-		cout << "|                                |Email   :                                                         |" << "\n"; // line 8
-		cout << "|--------------------------------|Date of birth :                                                   |" << "\n"; // line 9
-		cout << "                                 |Card cre. date:                                                   |" << "\r|Current amount of reader: " << current_amount_of_reader << "\n"; // line 10
-		cout << "                                 |Address :                                                         |" << "\r|Library capcity: " << max_amount_of_reader << "\n\n"; // line 11
-		cout << "                " << i - current_amount_of_reader + 1 << "\r|Current count: " << "\n"; // line 13
+		cout << "|[0]: Return to main menu        |Cit. ID :                                                         |" << "\n"; 
+		cout << "|                                |Surname :                                                         |" << "\n"; 
+		cout << "|                                |Name    :                                                         |" << "\n"; 
+		cout << "|                                |Sex     :                                                         |" << "\n"; 
+		cout << "|                                |Email   :                                                         |" << "\n";
+		cout << "|--------------------------------|Date of birth :                                                   |" << "\n";
+		cout << "                                 |Address :                                                         |" << "\r|Current amount of reader: " << current_amount_of_reader << "\n\n\n"; 
+		cout << "                " << i - current_amount_of_reader + 1 << "\r|Current count: " << "\n"; 
 
 		//add cit. ID
 		set_cursor_position(0, 3);
@@ -226,34 +223,6 @@ void add_reader
 		cout << "|                                | dd/mm/yyyy                                                       |" << "\n";
 		set_cursor_position(0, 9);
 
-		//add card cre
-		cout << "|Current amount of reader: " << current_amount_of_reader; 
-		set_cursor_position(33,9);
-		cout << "|Card cre. date: ";
-		cin.getline(input, max_input_length);
-		while (check_date_validity(input) == false)
-		{
-			handle_add_reader_error(6);
-			cin.getline(input, max_input_length);
-		}
-		strcpy_s(list_of_readers[i].card_creation_date, input);
-		set_cursor_position(0, 14);
-		cout << "|                                |                                                                  |" << "\n";
-		set_cursor_position(0, 10);
-
-		//add card exp
-		int int_year = (int(input[9]) - 48) + (int(input[8]) - 48) * 10 + (int(input[7]) - 48) * 100 + (int(input[6]) - 48) * 1000;
-		int_year += 4;
-		int j = 1000;
-		for (int i = 0; i < 4; i++)
-		{
-			int temp = int_year / j;
-			int_year %= j;
-			j /= 10;
-			input[i + 6] = char(temp + 48);
-		}
-		strcpy_s(list_of_readers[i].card_expiration_date, input);
-
 		//add address
 		cout << "\r|Library capcity: " << max_amount_of_reader;
 		set_cursor_position(33, 10);
@@ -265,6 +234,24 @@ void add_reader
 		strcpy_s(list_of_readers[i].address, input);
 		set_cursor_position(0, 14);
 		cout << "|                                |                                                                  |" << "\n";
+
+		//add card cre
+		char current_date[11];
+		get_system_time(current_date, 0);
+		strcpy_s(list_of_readers[i].card_creation_date, current_date);
+
+		//add card exp
+		int int_year = (int(current_date[9]) - 48) + (int(current_date[8]) - 48) * 10 + (int(current_date[7]) - 48) * 100 + (int(current_date[6]) - 48) * 1000;
+		int_year += 4;
+		int j = 1000;
+		for (int i = 0; i < 4; i++)
+		{
+			int temp = int_year / j;
+			int_year %= j;
+			j /= 10;
+			current_date[i + 6] = char(temp + 48);
+		}
+		strcpy_s(list_of_readers[i].card_expiration_date, current_date);
 
 		//add id
 		char str_generated_id[9] = "00000000";
@@ -299,13 +286,14 @@ void add_reader
 	set_cursor_position(0, 14);
 	cout << "|                                |       ~~~  Adding complete! Press any key to continue. ~~~       |" << "\n";
 	cin.ignore();
+	return true;
 }
 
 //change a reader information
 //user choose a book by entering their library ID
 //then pick a certain piece of info to change
 //enter the new info, the input is checked just as it is checked in add book menu
-void change_reader_info
+bool change_reader_info
 (
 	reader list_of_readers[]
 )
@@ -345,7 +333,7 @@ void change_reader_info
 
 	if (finding_option == 0)
 	{
-		return;
+		return false;
 	}
 	else if (finding_option == 1)
 	{
@@ -472,14 +460,14 @@ void change_reader_info
 	set_cursor_position(0, 14);
 	cout << "|                                |             ~~~ Information changed successfully ~~~             |";
 	cin.ignore();
-	return;
+	return true;
 }
 
 //remove everything from a or ALL reader
 //user choose which option to delete, 1 or all
 //if choose 1, enter reader library ID to delete
 //if choose all, type confirm to delete all
-void delete_reader_menu
+bool delete_reader_menu
 (
 	reader list_of_readers[],
 	int current_amount_of_reader
@@ -508,7 +496,7 @@ void delete_reader_menu
 	cout << "|                                |                                                                  |" << "\n"; // line 14
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; // line 15
 	set_cursor_position(17, 9); delete_option = int(_getch() - 48); cout << "\n";
-	while (delete_option < 0 || delete_option > 3)
+	while (delete_option < 0 || delete_option > 2)
 	{
 		set_cursor_position(17, 9);
 		cout << "|Delete option: ";
@@ -518,8 +506,9 @@ void delete_reader_menu
 	switch (delete_option)
 	{
 	case 0:
-		return;
+		return false;
 	case 1:
+	{
 		set_cursor_position(0, 9);
 		cout << "|Delete option : Delete 1" << "\n";
 		cout << "|Enter Lib. ID : "; cin.getline(input_id, 9);
@@ -557,8 +546,10 @@ void delete_reader_menu
 		set_cursor_position(34, 14);
 		cout << "                         ~~~ Deleted! ~~~                         |";
 		cin.ignore();
-		return;
+		return true;
+	}
 	case 2:
+	{
 		set_cursor_position(0, 9);
 		cout << "|Delete option : ALL" << "\n";
 		char input[8];
@@ -582,16 +573,18 @@ void delete_reader_menu
 			set_cursor_position(34, 14);
 			cout << "                       ~~~ Deleted all! ~~~                       |";
 			cin.ignore();
-			return;
+			return true;
 		}
 		else
 		{
 			set_cursor_position(34, 14);
 			cout << "                   ~~~ Deleting all failed! ~~~                   |";
 			cin.ignore();
-			return;
+			return false;
 		}
 	}
+	}
+	return false;
 }
 
 //display 1 reader, found using the find reader function

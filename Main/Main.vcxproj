@@ -31,6 +31,7 @@
     <ClCompile Include="reader_tools.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="std_library_used.h" />
     <ClInclude Include="basic_tools.h" />
     <ClInclude Include="book_borrowing.h" />
     <ClInclude Include="book_tools.h" />
@@ -46,12 +47,6 @@
     <Text Include="books_data_1.txt" />
     <Text Include="borrow_forms_data_1.txt" />
     <Text Include="readers_data_1.txt" />
-    <Text Include="books_data_2.txt" />
-    <Text Include="readers_data_2.txt" />
-    <Text Include="borrow_forms_data_2.txt" />
-    <Text Include="books_data_3.txt" />
-    <Text Include="readers_data_3.txt" />
-    <Text Include="borrow_forms_data_3.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

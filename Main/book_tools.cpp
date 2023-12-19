@@ -1,6 +1,4 @@
-#include <iostream>
-#include <conio.h>
-#include <string.h>
+#include "std_library_used.h"
 #include "basic_tools.h"
 #include "error_handing_tools.h"
 #include "verify_input_tools.h"
@@ -75,7 +73,7 @@ void view_list_of_books
 //add n number of books, the number is chosen by the user
 //slowly add every infomation, with input check to verify that it is valid
 //if there is no more space, simply return to display menu
-void add_book
+bool add_book
 (
 	book_title list_of_books_titles[],
 	int max_amount_of_books,
@@ -93,7 +91,7 @@ void add_book
 		set_cursor_position(0, 14);
 		cout << "|                                |                   ~~~  Error: Library full ~~~                   |" << "\n";
 		system("pause");
-		return;
+		return false;
 	}
 
 	const int max_input_length = 50;
@@ -116,7 +114,7 @@ void add_book
 	cout << "|                                |                                                                  |" << "\n";
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
 	set_cursor_position(25, 11); cin >> amount_of_new_books;
-	if (amount_of_new_books < 1) return;
+	if (amount_of_new_books < 1) return false;
 	while (amount_of_new_books > max_amount_of_books - current_amount_of_books)
 	{
 		set_cursor_position(0, 14);
@@ -269,13 +267,14 @@ void add_book
 	set_cursor_position(0, 14);
 	cout << "|                                |       ~~~  Adding complete! Press any key to continue. ~~~       |" << "\n";
 	cin.ignore();
+	return true;
 }
 
 //change a book information
 //user choose a book by entering its ISBN code
 //then pick a certain piece of info to change
 //enter the new info, the input is checked just as it is checked in add book menu
-void change_book_info
+bool change_book_info
 (
 	book_title list_of_books_titles[]
 )
@@ -316,7 +315,7 @@ void change_book_info
 
 	if (finding_option == 0)
 	{
-		return;
+		return false;
 	}
 	else if (finding_option == 1)
 	{
@@ -491,14 +490,14 @@ void change_book_info
 	set_cursor_position(0, 14);
 	cout << "|[1]: ISBN                       |             ~~~ Information changed successfully ~~~             |";
 	cin.ignore();
-	return;
+	return true;
 }
 
 //remove everything from a or ALL book
 //user choose which option to delete, 1 or all
 //if choose 1, enter book ISBN to delete
 //if choose all, type confirm to delete all
-void delete_book_menu
+bool delete_book_menu
 (
 	book_title list_of_books_titles[],
 	int  current_amount_of_books
@@ -526,7 +525,7 @@ void delete_book_menu
 	cout << "|                                |                                                                  |" << "\n"; // line 14
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; // line 15
 	set_cursor_position(16, 9); delete_option = int(_getch() - 48); cout << "\n";
-	while (delete_option < 0 || delete_option > 3)
+	while (delete_option < 0 || delete_option > 2)
 	{
 		set_cursor_position(0, 9);
 		cout << "|Delete option : ";
@@ -536,8 +535,9 @@ void delete_book_menu
 	switch (delete_option)
 	{
 	case 0:
-		return;
+		return false;
 	case 1:
+	{
 		set_cursor_position(0, 9);
 		cout << "|Delete option : Delete 1" << "\n";
 		cout << "\r|Enter ISBN : "; cin.getline(input_isbn, 9);
@@ -566,7 +566,7 @@ void delete_book_menu
 				cout << "\n\n\n";
 				cout << "|                                |                         ~~~ Deleted! ~~~                         |";
 				cin.ignore();
-				return;
+				return true;
 			}
 			strcpy_s(list_of_books_titles[i].isbn, list_of_books_titles[i + 1].isbn);
 			strcpy_s(list_of_books_titles[i].name, list_of_books_titles[i + 1].name);
@@ -578,7 +578,9 @@ void delete_book_menu
 			strcpy_s(list_of_books_titles[i].publish_year, list_of_books_titles[i + 1].publish_year);
 			i++;
 		}
+	}
 	case 2:
+	{
 		set_cursor_position(0, 9);
 		cout << "|Delete option : ALL" << "\n";
 		char input[8];
@@ -599,15 +601,17 @@ void delete_book_menu
 			}
 			cout << "\r|                                |                       ~~~ Deleted all! ~~~                       |";
 			cin.ignore();
-			return;
+			return true;
 		}
 		else
 		{
 			cout << "\r|                                |                   ~~~ Deleting all failed! ~~~                   |";
 			cin.ignore();
-			return;
+			return false;
 		}
 	}
+	}
+	return false;
 }
 
 //display 1 book, found using the find book function

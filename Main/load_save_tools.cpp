@@ -1,12 +1,11 @@
-#include <iostream>
-#include <string.h>
+#include "std_library_used.h"
 #include "prefab_type.h"
 
 using std::cout;
 using std::cin;
 
 //load all data 
-void load_all_readers(char file_name[], reader list_of_readers[])
+void load_all_readers(const char* file_name, reader list_of_readers[])
 {
 	cout << "Loading readers data..." << "\n";
 	FILE* file_pointer;
@@ -51,7 +50,7 @@ void load_all_readers(char file_name[], reader list_of_readers[])
 	}
 	fclose(file_pointer);
 }
-void load_all_books(char file_name[], book_title list_of_book_titles[])
+void load_all_books(const char* file_name, book_title list_of_book_titles[])
 {
 	cout << "Loading books data..." << "\n";
 	FILE* file_pointer;
@@ -91,11 +90,11 @@ void load_all_books(char file_name[], book_title list_of_book_titles[])
 		}
 		i++;
 	}
-	std::system("pause");
 	fclose(file_pointer);
 }
-void load_all_borrow_forms(char file_name[], borrowing_book_form list_of_borrow_forms[])
+void load_all_borrow_forms(const char* file_name, borrowing_book_form list_of_borrow_forms[])
 {
+	cout << "Loading forms data..." << "\n";
 	FILE* file_pointer;
 	fopen_s(&file_pointer, file_name, "r");
 	if (file_pointer == NULL)
@@ -103,10 +102,39 @@ void load_all_borrow_forms(char file_name[], borrowing_book_form list_of_borrow_
 		cout << "Data failed to load! Closing program..." << "\n";
 		exit(0);
 	}
+
+	int i = 0, num = 0, current_number_of_forms = 0;
+	if (fscanf_s(file_pointer, "%d\n", &current_number_of_forms) == NULL)
+	{
+		cout << "Data failed to load! Closing program..." << "\n";
+		cout << "Error: Can't read amount" << "\n";
+		exit(0);
+	}
+
+	while ((num = fscanf_s(file_pointer, "%8[^,],%8[^,],%10[^,],%10[^,],%13[^,],%13[^,],%13[^.].\n",
+		list_of_borrow_forms[i].form_id, 9,
+		list_of_borrow_forms[i].borrower_id, 9,
+		list_of_borrow_forms[i].borrow_date, 11,
+		list_of_borrow_forms[i].expected_return_date, 11,
+		list_of_borrow_forms[i].borrowed_books_isbn[0], 14,
+		list_of_borrow_forms[i].borrowed_books_isbn[1], 14,
+		list_of_borrow_forms[i].borrowed_books_isbn[2], 14
+	)) != EOF && i <= current_number_of_forms)
+	{
+		if (num != 7)
+		{
+			cout << "Data failed to load! Closing program..." << "\n";
+			cout << "Error: Can't read data" << "\n";
+			cout << num << " " << i << "\n";
+			exit(0);
+		}
+		i++;
+	}
+	fclose(file_pointer);
 }
 
 //save all data
-bool save_all_readers(char file_name[], reader list_of_readers[])
+bool save_all_readers(const char* file_name, reader list_of_readers[])
 {
 	FILE* file_pointer;
 	fopen_s(&file_pointer, file_name, "w");
@@ -120,7 +148,6 @@ bool save_all_readers(char file_name[], reader list_of_readers[])
 	{
 		current_number_of_readers++;
 	}
-	current_number_of_readers--;
 
 	fprintf_s(file_pointer, "%d\n", current_number_of_readers);
 	for (int i = 0; i < current_number_of_readers; i++)
@@ -142,7 +169,7 @@ bool save_all_readers(char file_name[], reader list_of_readers[])
 	fclose(file_pointer);
 	return true;
 }
-bool save_all_books(char file_name[], book_title list_of_book_titles[])
+bool save_all_books(const char* file_name, book_title list_of_book_titles[])
 {
 	FILE* file_pointer;
 	fopen_s(&file_pointer, file_name, "w");
@@ -156,7 +183,6 @@ bool save_all_books(char file_name[], book_title list_of_book_titles[])
 	{
 		current_number_of_books++;
 	}
-	current_number_of_books--;
 
 	fprintf_s(file_pointer, "%d\n", current_number_of_books);
 	for (int i = 0; i < current_number_of_books; i++)
@@ -175,32 +201,34 @@ bool save_all_books(char file_name[], book_title list_of_book_titles[])
 	fclose(file_pointer);
 	return true;
 }
-bool save_all_borrow_forms(char file_name[])
+bool save_all_borrow_forms(const char* file_name, borrowing_book_form list_of_borrow_forms[])
 {
-
-}
-
-//assign the correct file name with the save slot
-void choose_save_slot(char reader_file[], char book_file[], char borrow_form_file[])
-{
-	int save_file;
-	cout << "Choose save file 1-3: "; cin >> save_file;
-	switch (save_file)
+	FILE* file_pointer;
+	fopen_s(&file_pointer, file_name, "w");
+	if (file_pointer == NULL)
 	{
-	case 1:
-		strcpy_s(reader_file, 19, "readers_data_1.txt");
-		strcpy_s(book_file, 17, "books_data_1.txt"); 
-		strcpy_s(borrow_form_file, 24, "borrow_forms_data_1.txt");
-		return;
-	case 2:
-		strcpy_s(reader_file, 19, "readers_data_2.txt");
-		strcpy_s(book_file, 17, "books_data_2.txt");
-		strcpy_s(borrow_form_file, 24, "borrow_forms_data_2.txt");
-		return;
-	case 3:
-		strcpy_s(reader_file, 19, "readers_data_3.txt");
-		strcpy_s(book_file, 17, "books_data_3.txt");
-		strcpy_s(borrow_form_file, 24, "borrow_forms_data_3.txt");
-		return;
+		return false;
 	}
+
+	int current_number_of_forms = 0;
+	while (list_of_borrow_forms[current_number_of_forms].form_id[0] != 0)
+	{
+		current_number_of_forms++;
+	}
+
+	fprintf_s(file_pointer, "%d\n", current_number_of_forms);
+	for (int i = 0; i < current_number_of_forms; i++)
+	{
+		fprintf_s(file_pointer, "%s,%s,%s,%s,%s,%s,%s.\n",
+			list_of_borrow_forms[i].form_id, 
+			list_of_borrow_forms[i].borrower_id, 
+			list_of_borrow_forms[i].borrow_date, 
+			list_of_borrow_forms[i].expected_return_date, 
+			list_of_borrow_forms[i].borrowed_books_isbn[0], 
+			list_of_borrow_forms[i].borrowed_books_isbn[1], 
+			list_of_borrow_forms[i].borrowed_books_isbn[2]
+		);
+	}
+	fclose(file_pointer);
+	return true;
 }

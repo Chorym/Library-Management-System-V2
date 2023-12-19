@@ -1,13 +1,21 @@
-#include <iostream>
-#include <iomanip>
-#include <string.h>
-#include <cstdlib>
+#include "std_library_used.h"
 #include "prefab_type.h"
 #include "book_tools.h"
 #include "book_borrowing.h"
 
 using std::cout;
 using std::setw;
+
+//get current system time
+void get_system_time(char return_current_date[11], char return_current_time[6])
+{
+	auto system_time = std::chrono::system_clock::now();
+	time_t c_time = std::chrono::system_clock::to_time_t(system_time);
+	tm tm;
+	localtime_s(&tm, &c_time);
+	strftime(return_current_date, sizeof(return_current_date), "%d/%m/%Y", &tm);
+	strftime(return_current_time, sizeof(return_current_time), "%H:%M", &tm);
+}
 
 //move the cursor of a desired position on the console screen
 //may work differently depending on the operating system

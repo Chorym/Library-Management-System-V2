@@ -1,5 +1,4 @@
-#include <iostream>
-#include <iomanip>
+#include "std_library_used.h"
 #include "basic_tools.h"
 #include "verify_input_tools.h"
 
@@ -200,26 +199,20 @@ void stats_amount_of_readers_books_overdue
 	borrowing_book_form list_of_forms_for_borrowing[]
 )
 {
-	char input_current_date[11];
 	system("cls");
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
 	cout << "|                            ~~~ Amount of reader with overdue books ~~~                            |" << "\n";
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
 	
-	cout << setw(101) << "dd/mm/yyyy |" << "\r| Enter current date: " << "\n";
-	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
-	set_cursor_position(0, 3);
-	cout << "| Enter current date: ";  cin.getline(input_current_date, 11);
-	while (check_date_validity(input_current_date) == false)
-	{
-		set_cursor_position(0, 3);
-		cout << "| Enter current date: ";  cin.getline(input_current_date, 11);
-	}
+	char current_date[11]; 
+	get_system_time(current_date, 0);
+	cout << "Current date : " << current_date << "\n";
+
 	int sum = 0;
 	int i = 0;
 	while (list_of_forms_for_borrowing[i].borrow_date[0] != 0)
 	{
-		if (find_distance_between_2_dates(list_of_forms_for_borrowing[i].borrow_date, input_current_date) > 7)
+		if (find_distance_between_2_dates(list_of_forms_for_borrowing[i].borrow_date, current_date) > 7)
 		{
 			sum++;
 		}

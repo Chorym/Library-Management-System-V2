@@ -28,11 +28,8 @@
     <Filter Include="Resource Files\save_folder_1">
       <UniqueIdentifier>{5de28730-75f2-4113-aebb-e63912d2bf1c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\save_folder_2">
-      <UniqueIdentifier>{8af60466-07d9-4a65-8698-c1ab34af3064}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\save_folder_3">
-      <UniqueIdentifier>{de769f46-d036-442b-91d2-ec5219ffdf53}</UniqueIdentifier>
+    <Filter Include="Resource Files\prefab">
+      <UniqueIdentifier>{62509ea2-dc56-4e36-874e-8642d493c641}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -89,14 +86,17 @@
     <ClInclude Include="statistic.h">
       <Filter>Header Files\main functions files</Filter>
     </ClInclude>
-    <ClInclude Include="prefab_type.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="menus.h">
       <Filter>Header Files\main functions files</Filter>
     </ClInclude>
     <ClInclude Include="load_save_tools.h">
       <Filter>Header Files\tools files</Filter>
+    </ClInclude>
+    <ClInclude Include="prefab_type.h">
+      <Filter>Resource Files\prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="std_library_used.h">
+      <Filter>Resource Files\prefab</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -108,24 +108,6 @@
     </Text>
     <Text Include="readers_data_1.txt">
       <Filter>Resource Files\save_folder_1</Filter>
-    </Text>
-    <Text Include="books_data_2.txt">
-      <Filter>Resource Files\save_folder_2</Filter>
-    </Text>
-    <Text Include="readers_data_2.txt">
-      <Filter>Resource Files\save_folder_2</Filter>
-    </Text>
-    <Text Include="borrow_forms_data_2.txt">
-      <Filter>Resource Files\save_folder_2</Filter>
-    </Text>
-    <Text Include="books_data_3.txt">
-      <Filter>Resource Files\save_folder_3</Filter>
-    </Text>
-    <Text Include="readers_data_3.txt">
-      <Filter>Resource Files\save_folder_3</Filter>
-    </Text>
-    <Text Include="borrow_forms_data_3.txt">
-      <Filter>Resource Files\save_folder_3</Filter>
     </Text>
   </ItemGroup>
 </Project>
