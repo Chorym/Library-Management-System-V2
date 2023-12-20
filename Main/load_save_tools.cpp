@@ -18,7 +18,7 @@ void load_all_readers(const char* file_name, reader list_of_readers[])
 	}
 
 	int i = 0, num = 0, current_number_of_readers = 0;
-	if (fscanf_s(file_pointer, "%d\n", &current_number_of_readers) == NULL)
+	if (fscanf_s(file_pointer, "%d\n", &current_number_of_readers) != 1)
 	{
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't read amount" << "\n";
@@ -37,7 +37,7 @@ void load_all_readers(const char* file_name, reader list_of_readers[])
 		list_of_readers[i].card_creation_date, 11,
 		list_of_readers[i].card_expiration_date, 11,
 		list_of_readers[i].fine, 5
-	)) != EOF && i <= current_number_of_readers)
+	)) != EOF && i < current_number_of_readers - 1)
 	{
 		if (num != 11)
 		{
@@ -63,7 +63,7 @@ void load_all_books(const char* file_name, book_title list_of_book_titles[])
 	}
 
 	int i = 0, num = 0, current_number_of_books = 0;
-	if (fscanf_s(file_pointer, "%d\n", &current_number_of_books) == NULL)
+	if (fscanf_s(file_pointer, "%d\n", &current_number_of_books) != 1)
 	{
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't read amount" << "\n";
@@ -79,7 +79,7 @@ void load_all_books(const char* file_name, book_title list_of_book_titles[])
 		list_of_book_titles[i].genre, 31,
 		list_of_book_titles[i].price, 5,
 		list_of_book_titles[i].amount, 5
-	)) != EOF && i <= current_number_of_books)
+	)) != EOF && i < current_number_of_books - 1)
 	{
 		if (num != 8)
 		{
@@ -104,7 +104,7 @@ void load_all_borrow_forms(const char* file_name, borrowing_book_form list_of_bo
 	}
 
 	int i = 0, num = 0, current_number_of_forms = 0;
-	if (fscanf_s(file_pointer, "%d\n", &current_number_of_forms) == NULL)
+	if (fscanf_s(file_pointer, "%d\n", &current_number_of_forms) != 1)
 	{
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't read amount" << "\n";
@@ -119,7 +119,7 @@ void load_all_borrow_forms(const char* file_name, borrowing_book_form list_of_bo
 		list_of_borrow_forms[i].borrowed_books_isbn[0], 14,
 		list_of_borrow_forms[i].borrowed_books_isbn[1], 14,
 		list_of_borrow_forms[i].borrowed_books_isbn[2], 14
-	)) != EOF && i <= current_number_of_forms)
+	)) != EOF && i < current_number_of_forms - 1)
 	{
 		if (num != 7)
 		{
@@ -229,6 +229,131 @@ bool save_all_borrow_forms(const char* file_name, borrowing_book_form list_of_bo
 			list_of_borrow_forms[i].borrowed_books_isbn[2]
 		);
 	}
+	fclose(file_pointer);
+	return true;
+}
+
+//temp debugger load tool, removed when done
+bool the_bullshiter
+(
+	const char* loader_file, 
+	reader list_of_readers[],
+	book_title list_of_book_titles[],
+	borrowing_book_form list_of_borrow_forms[]
+)
+{
+	cout << "This is a temp function to load ALL test data, any new changes will be overwriten" << "\n";
+	cout << "Press 1 to run this function, anything else to not" << "\n";
+	int a = int(_getch() - 48);
+	if (a != 1) return false;
+	
+	FILE* file_pointer;
+	fopen_s(&file_pointer, loader_file, "r");
+	if (file_pointer == NULL)
+	{
+		cout << "Data failed to load! Closing program..." << "\n";
+		cout << "Error: Can't open file" << "\n";
+		exit(0);
+	}
+
+	///////////////////////////////////////
+	cout << "here" << "\n";
+	int i = 0, num = 0, current_number_of_readers = 0;
+	if (fscanf_s(file_pointer, "%d\n", &current_number_of_readers) != 1)
+	{
+		cout << "Data failed to load! Closing program..." << "\n";
+		cout << "Error: Can't read amount reader" << "\n";
+		exit(0);
+	}
+	cout << current_number_of_readers << "\n";
+	while ((num = fscanf_s(file_pointer, "%8[^,],%12[^,],%20[^,],%30[^,],%c,%10[^,],%75[^,],%100[^,],%10[^,],%10[^,],%4[^.].\n",
+		list_of_readers[i].library_id, 9,
+		list_of_readers[i].citizen_id, 13,
+		list_of_readers[i].surname, 21,
+		list_of_readers[i].name, 31,
+		&list_of_readers[i].sex, 1,
+		list_of_readers[i].date_of_birth, 11,
+		list_of_readers[i].email, 76,
+		list_of_readers[i].address, 101,
+		list_of_readers[i].card_creation_date, 11,
+		list_of_readers[i].card_expiration_date, 11,
+		list_of_readers[i].fine, 5
+	)) != EOF && i < current_number_of_readers - 1)
+	{
+		if (num != 11)
+		{
+			cout << "Data failed to load! Closing program..." << "\n";
+			cout << "Error: Can't read data reader" << "\n";
+			cout << num << i << "\n";
+			exit(0);
+		}
+		i++;
+	}
+	///////////////////////////////////////
+	cout << "here" << "\n";
+	i = 0;
+	num = 0;
+	int current_number_of_books = 0;
+	if (fscanf_s(file_pointer, "%d\n", &current_number_of_books) != 1)
+	{
+		cout << "Data failed to load! Closing program..." << "\n";
+		cout << "Error: Can't read amount book" << "\n";
+		exit(0);
+	}
+	cout << current_number_of_books << "\n";
+	while ((num = fscanf_s(file_pointer, "%13[^,],%100[^,],%50[^,],%50[^,],%4[^,],%30[^,],%4[^,],%4[^.].\n",
+		list_of_book_titles[i].isbn, 14,
+		list_of_book_titles[i].name, 101,
+		list_of_book_titles[i].author, 51,
+		list_of_book_titles[i].publisher, 51,
+		list_of_book_titles[i].publish_year, 5,
+		list_of_book_titles[i].genre, 31,
+		list_of_book_titles[i].price, 5,
+		list_of_book_titles[i].amount, 5
+	)) != EOF && i < current_number_of_books - 1)
+	{
+		if (num != 8)
+		{
+			cout << "Data failed to load! Closing program..." << "\n";
+			cout << "Error: Can't read data book" << "\n";
+			cout << num << " " << i << "\n";
+			exit(0);
+		}
+		i++;
+	}
+
+	///////////////////////////////////////
+	cout << "here" << "\n";
+	i = 0;
+	num = 0;
+	int current_number_of_forms = 0;
+	if (fscanf_s(file_pointer, "%d\n", &current_number_of_forms) != 1)
+	{
+		cout << "Data failed to load! Closing program..." << "\n";
+		cout << "Error: Can't read amount form" << "\n";
+		exit(0);
+	}
+	cout << current_number_of_forms << "\n";
+	while ((num = fscanf_s(file_pointer, "%8[^,],%8[^,],%10[^,],%10[^,],%13[^,],%13[^,],%13[^.].\n",
+		list_of_borrow_forms[i].form_id, 9,
+		list_of_borrow_forms[i].borrower_id, 9,
+		list_of_borrow_forms[i].borrow_date, 11,
+		list_of_borrow_forms[i].expected_return_date, 11,
+		list_of_borrow_forms[i].borrowed_books_isbn[0], 14,
+		list_of_borrow_forms[i].borrowed_books_isbn[1], 14,
+		list_of_borrow_forms[i].borrowed_books_isbn[2], 14
+	)) != EOF && i < current_number_of_forms - 1)
+	{
+		if (num != 7)
+		{
+			cout << "Data failed to load! Closing program..." << "\n";
+			cout << "Error: Can't read data form" << "\n";
+			cout << num << " " << i << "\n";
+			exit(0);
+		}
+		i++;
+	}
+	cout << "here" << "\n";
 	fclose(file_pointer);
 	return true;
 }

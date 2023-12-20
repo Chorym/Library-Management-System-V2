@@ -238,7 +238,7 @@ bool add_reader
 
 		//add card cre
 		char current_date[11];
-		get_system_time(current_date, 0);
+		get_system_time(current_date);
 		strcpy_s(list_of_readers[i].card_creation_date, current_date);
 
 		//add card exp

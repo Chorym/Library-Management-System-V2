@@ -320,7 +320,7 @@ void handle_add_form_error(int error_case, int i)
 	case 0:
 	{
 		set_cursor_position(37, 10);
-		cout << "|             ~~~ Error: Can't find reader! ~~~             ";
+		cout << "|             ~~~ Error: Can't find reader! ~~~";
 		set_cursor_position(18, 3);
 		cout << "                  ";
 		set_cursor_position(0, 3); cout << "|Enter Reader ID: ";
@@ -329,7 +329,7 @@ void handle_add_form_error(int error_case, int i)
 	case 1:
 	{
 		set_cursor_position(37, 10);
-		cout << "|               ~~~ Error: Invalid value! ~~~               ";
+		cout << "|               ~~~ Error: Invalid value! ~~~";
 		set_cursor_position(33, 6);
 		cout << "    ";
 		set_cursor_position(33, 6);
@@ -338,25 +338,25 @@ void handle_add_form_error(int error_case, int i)
 	case 2:
 	{
 		set_cursor_position(37, 10);
-		cout << "|                ~~~ Error: Can't find book ~~~                |";
+		cout << "|                ~~~ Error: Can't find book ~~~";
 		set_cursor_position(0, 6 + i);
 		cout << "                                     ";
-		set_cursor_position(0, 6 + i); cout << "|Enter Book: " << i + 1 << " ISBN: ";
+		set_cursor_position(0, 6 + i); cout << "|Enter Book " << i + 1 << " ISBN: ";
 		break;
 	}
 	case 3:
 	{
 		set_cursor_position(37, 10);
-		cout << "|               ~~~ Error: This book ran out ~~~               |";
+		cout << "|               ~~~ Error: This book ran out ~~~";
 		set_cursor_position(0, 6 + i);
 		cout << "                                     ";
-		set_cursor_position(0, 6 + i); cout << "|Enter Book: " << i + 1 << " ISBN: ";
+		set_cursor_position(0, 6 + i); cout << "|Enter Book " << i + 1 << " ISBN: ";
 		break;
 	}
 	case 4:
 	{
 		set_cursor_position(37, 10);
-		cout << "|                  ~~~ Error: Invalid date ~~~                  ";
+		cout << "|                  ~~~ Error: Invalid date ~~~";
 		set_cursor_position(14, 4);
 		cout << "                       ";
 		set_cursor_position(14, 4);
@@ -365,7 +365,7 @@ void handle_add_form_error(int error_case, int i)
 	case 5:
 	{
 		set_cursor_position(37, 10);
-		cout << "|                  ~~~ Error: Invalid date ~~~                  ";
+		cout << "|                  ~~~ Error: Invalid date ~~~";
 		set_cursor_position(37, 4);
 		cout << "                                       ";
 		set_cursor_position(37, 4);

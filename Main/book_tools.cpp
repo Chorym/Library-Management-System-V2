@@ -17,9 +17,9 @@ int find_book
 )
 {
 	int i = 0;
-	if (input_isbn[0] != 0)
+	if (input_isbn != 0)
 	{
-		while (list_of_books_titles[i].isbn != 0)
+		while (list_of_books_titles[i].isbn[0] != 0)
 		{
 			if (strcmp(input_isbn, list_of_books_titles[i].isbn) == 0)
 			{

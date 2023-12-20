@@ -28,7 +28,7 @@ void view_all_borrowings
 		return;
 	}
 	int i = page_number * 5;
-	while (list_of_forms_for_borrowing[0].form_id[0] != 0)
+	while (list_of_forms_for_borrowing[i].form_id[0] != 0)
 	{
 		display_borrow_forms(list_of_forms_for_borrowing, i);
 		i++;
@@ -37,7 +37,6 @@ void view_all_borrowings
 			break;
 		}
 	}
-	
 }
 
 //user start by entering a reader library ID
@@ -105,11 +104,11 @@ bool borrow_books
 
 	//get book
 	set_cursor_position(33, 6);
-	cin >> amount_of_different_title_to_borrow; cin.ignore();
-	while (amount_of_different_title_to_borrow > current_amount_of_book)
+	amount_of_different_title_to_borrow = int(_getch() - 48);
+	while (amount_of_different_title_to_borrow > current_amount_of_book || (amount_of_different_title_to_borrow > 3 || amount_of_different_title_to_borrow < 1))
 	{
 		handle_add_form_error(0, 0);
-		cin >> amount_of_different_title_to_borrow; cin.ignore();
+		amount_of_different_title_to_borrow = int(_getch() - 48);
 	}
 
 	for (int i = 0; i < amount_of_different_title_to_borrow; i++)
@@ -132,7 +131,7 @@ bool borrow_books
 		set_cursor_position(20, 6 + i);
 		cin.getline(input, max_input_length);
 		book_number = find_book(list_of_books_titles, input, 0);
-		while (book_number == -1 || list_of_books_titles[book_number].amount == 0)
+		while (book_number == -1 || list_of_books_titles[book_number].amount == 0 || input[0] == 0)
 		{
 			if(book_number == -1)
 			{
@@ -157,10 +156,18 @@ bool borrow_books
 		_itoa_s(temp, temp2, 10);
 		strcpy_s(list_of_books_titles[i].amount, temp2);
 	}
+
+	while (amount_of_different_title_to_borrow < 3)
+	{
+		strcpy_s(list_of_forms_for_borrowing[current_amount_of_forms].borrowed_books_isbn[amount_of_different_title_to_borrow], 5, "None");
+		amount_of_different_title_to_borrow++;
+	}
 	
 	//get borrow date
 	char current_date[11];
-	get_system_time(current_date, 0);
+	get_system_time(current_date);
+	set_cursor_position(0, 4);
+	cout << "|Today: " << current_date;
 	strcpy_s(list_of_forms_for_borrowing[current_amount_of_forms].borrow_date, current_date);
 	int borrow_day = convert_date_to_day(current_date);
 
@@ -311,7 +318,7 @@ bool return_books
 	
 	//get return day
 	char current_date[11];
-	get_system_time(current_date, 0);
+	get_system_time(current_date);
 	set_cursor_position(42, 4);
 	cout << current_date;
 

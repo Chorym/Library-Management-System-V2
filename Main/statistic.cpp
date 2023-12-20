@@ -205,8 +205,8 @@ void stats_amount_of_readers_books_overdue
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
 	
 	char current_date[11]; 
-	get_system_time(current_date, 0);
-	cout << "Current date : " << current_date << "\n";
+	get_system_time(current_date);
+	cout << "| Current date : " << current_date << "\n";
 
 	int sum = 0;
 	int i = 0;

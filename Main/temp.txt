@@ -1,5 +1,4 @@
-reader
-7
+10
 20230001,123456101111,Doe,John,1,25121980,johndoe@email.com,123 Main St,01012022,01012026,0.
 20230002,123456111111,Smith,Jane,2,10101995,janesmith@email.com,456 Oak St,15022022,15022026,0.
 20230003,123456121111,Johnson,Robert,1,03051987,robertjohnson@email.com,789 Pine St,01042022,01042026,0.
@@ -7,9 +6,11 @@ reader
 20230005,123456141111,Miller,Michael,1,17041978,michaelmiller@email.com,654 Birch St,20012022,20012026,0.
 20230006,123456151111,Brown,Emily,2,12061989,emilybrown@email.com,987 Cedar St,05032022,05032026,0.
 20230007,123456161111,Davis,Christopher,1,05011993,christopherdavis@email.com,789 Maple St,15042022,15042026,0.
+20230008,123456171111,Anderson,Susan,2,22091996,susananderson@email.com,567 Pineapple St,01052022,01052026,0.
+20230009,123456181111,Clark,David,1,18071985,davidclark@email.com,432 Orange St,20062022,20062026,0.
+20230010,123456191111,White,Sarah,2,27031992,sarahwhite@email.com,876 Grape St,15012022,15012026,0.
 
-books
-7
+10
 9780451524935,To Kill a Mockingbird,Harper Lee,J.B. Lippincott & Co.,1960,Fiction,15,10.
 9780061120084,1984,George Orwell,Harcourt Brace Jovanovich,1949,Dystopian Fiction,50,8.
 9780142407332,The Giver,Lois Lowry,Houghton Mifflin,1993,Young Adult,99,15.
@@ -17,6 +18,10 @@ books
 9780345391803,Brave New World,Aldous Huxley,Harper & Brothers,1932,Science Fiction,75,20.
 9781400034770,The Great Gatsby,F. Scott Fitzgerald,Scribner,1925,Classic,105,18.
 9780316769480,The Catcher in the Rye,J.D. Salinger,Brown and Company,1951,Fiction,45,25.
+9780385333849,Fahrenheit 451,Ray Bradbury,Ballantine Books,1953,Science Fiction,60,14.
+9780553384774,The Hitchhiker's Guide to the Galaxy,Douglas Adams,Del Rey Books,1979,Science Fiction,25,16.
+9780140283334,To Kill a Mockingbird,Harper Lee,Arrow Books,1960,Fiction,20,9.
 
-form
-0
+2
+13376334,20230004,20/12/2023,21/12/2023,9780061120084,None,None.
+13375705,20230006,20/12/2023,21/12/2023,9781400034770,None,None.

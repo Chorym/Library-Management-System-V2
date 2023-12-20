@@ -7,14 +7,16 @@ using std::cout;
 using std::setw;
 
 //get current system time
-void get_system_time(char return_current_date[11], char return_current_time[6])
+void get_system_time(char return_current_date[11])
 {
 	auto system_time = std::chrono::system_clock::now();
 	time_t c_time = std::chrono::system_clock::to_time_t(system_time);
 	tm tm;
 	localtime_s(&tm, &c_time);
-	strftime(return_current_date, sizeof(return_current_date), "%d/%m/%Y", &tm);
-	strftime(return_current_time, sizeof(return_current_time), "%H:%M", &tm);
+
+	char current_date[11];
+	strftime(current_date, sizeof(current_date), "%d/%m/%Y", &tm);
+	strcpy_s(return_current_date, 11, current_date);
 }
 
 //move the cursor of a desired position on the console screen
