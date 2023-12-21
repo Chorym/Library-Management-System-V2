@@ -60,7 +60,7 @@ void handle_add_reader_error(int error_case)
 	case 6:
 	{
 		cout << "|Address :                                                         |" << "\n";
-		cout << "\n\n\n";
+		cout << "\n\n\n\n";
 		cout << "|                                |                   ~~~ Error: Invalid value ~~~                   |" << "\n";
 		cout << "\r|-------------------------------------------\x1b[5A"; 
 		break;
@@ -175,43 +175,61 @@ void handle_add_book_error(int error_case)
 	case 1:
 	{
 		set_cursor_position(0, 14);
+		cout << "|                                |                   ~~~ Error: Invalid name ~~~                    |";
+		set_cursor_position(0, 4);
+		cout << "|                                |Name:                                                             |";
+		set_cursor_position(40, 4);
+		break;
+	}
+	case 2:
+	{
+		set_cursor_position(0, 14);
 		cout << "|                                |                   ~~~ Error: Invalid genre ~~~                   |";
 		set_cursor_position(0, 5);
 		cout << "|                                |Genre:                                                            |";
 		set_cursor_position(41, 5);
 		break;
 	}
-	case 2:
+	case 3:
 	{
 		set_cursor_position(0, 14);
-		cout << "|                                | 0 < price < 999           ~~~ Error: Invalid price ~~~           |";
+		cout << "|                                | 0 < price <= 999          ~~~ Error: Invalid price ~~~           |";
 		set_cursor_position(0, 6);
 		cout << "|                                |Price:                                                            |";
 		set_cursor_position(41, 6);
 		break;
 	}
-	case 3:
+	case 4:
 	{
 		set_cursor_position(0, 14);
 		cout << "|                                |                   ~~~ Error: Invalid name! ~~~                   |";
 		set_cursor_position(0, 7);
-		cout << "|                                |Author(s):                                                        |";
-		set_cursor_position(45, 7);
+		cout << "|                                |Author:                                                        |";
+		set_cursor_position(42, 7);
 		break;
 	}
 	case 5:
 	{
 		set_cursor_position(0, 14);
-		cout << "|                                | 1900 < year < 2023          ~~~ Error: Invalid year ~~~          |";
-		set_cursor_position(33, 9);
-		cout << "|Publish year:                                                     |";
-		set_cursor_position(48, 9);
+		cout << "|                                |                   ~~~ Error: Invalid name! ~~~                   |";
+		set_cursor_position(0, 8);
+		cout << "|                                |Publisher:                                                        |";
+		set_cursor_position(45, 8);
 		break;
 	}
 	case 6:
 	{
 		set_cursor_position(0, 14);
-		cout << "|                                | 0 < amount < 999          ~~~ Error: Invalid amount ~~~          |";
+		cout << "|                                | 1900 <= year <= 2023         ~~~ Error: Invalid year ~~~         |";
+		set_cursor_position(33, 9);
+		cout << "|Publish year:                                                     |";
+		set_cursor_position(48, 9);
+		break;
+	}
+	case 7:
+	{
+		set_cursor_position(0, 14);
+		cout << "|                                | 0 < amount <= 999         ~~~ Error: Invalid amount ~~~          |";
 		set_cursor_position(33, 10);
 		cout << "|Amount in stock:                                                  |";
 		set_cursor_position(51, 10);
@@ -227,6 +245,12 @@ void handle_fix_book_error(int error_case)
 	{
 		set_cursor_position(0, 14);
 		cout << "|[1]: ISBN                       |                   ~~~ Error: Invalid ISBN! ~~~                   |";
+		break;
+	}
+	case 2:
+	{
+		set_cursor_position(0, 14);
+		cout << "|[1]: ISBN                       |                   ~~~ Error: Invalid name! ~~~                   |";
 		break;
 	}
 	case 3:
@@ -251,6 +275,12 @@ void handle_fix_book_error(int error_case)
 	{
 		set_cursor_position(0, 14);
 		cout << "|[1]: ISBN                       | 0 < amount <= 999         ~~~ Error: Invalid amount ~~~          |";
+		break;
+	}
+	case 7:
+	{
+		set_cursor_position(0, 14);
+		cout << "|[1]: ISBN                       |                   ~~~ Error: Invalid name! ~~~                   |";
 		break;
 	}
 	case 8:

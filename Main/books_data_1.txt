@@ -7,5 +7,5 @@
 9781400034770,The Great Gatsby,F. Scott Fitzgerald,Scribner,1925,Classic,105,18.
 9780316769480,The Catcher in the Rye,J.D. Salinger,Brown and Company,1951,Fiction,45,25.
 9780385333849,Fahrenheit 451,Ray Bradbury,Ballantine Books,1953,Science Fiction,60,14.
-9780553384774,The Hitchhiker's Guide to the Galaxy,Douglas Adams,Del Rey Books,1979,Science Fiction,25,16.
-9780140283334,To Kill a Mockingbird,Harper Lee,Arrow Books,1960,Fiction,20,9.
+9780553384774,The Echoes of Eternity,Douglas Adams,Del Rey Books,1979,Science Fiction,25,16.
+9780140283334,To Kill a Mockingbird,Harper Lee,Arrow Books,1960,Classic,20,9.

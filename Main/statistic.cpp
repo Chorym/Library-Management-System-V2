@@ -4,6 +4,21 @@
 
 using namespace std;
 
+//check if the current genre is printed
+bool check_if_printed_genre(char current_genre[31], char printed_genre[][31])
+{
+	int k = 0;
+	while (printed_genre[k][0] != 0)
+	{
+		if (strcmp(current_genre, printed_genre[k]) == 0)
+		{
+			return true;
+		}
+		k++;
+	}
+	return false;
+}
+
 //prints every book title with its amount in stock
 //prints a total amount of books in stock
 void stats_amount_of_books
@@ -25,7 +40,7 @@ void stats_amount_of_books
 		cout << setw(101) << "|";
 		cout << "\r" << setw(90) << list_of_books_titles[i].amount;
 		cout << "\r" << setw(78) << "|";
-		cout << "\r                               |             " << list_of_books_titles[i].name;
+		cout << "\r                               | " << list_of_books_titles[i].name;
 		cout <<	"\r|        " << list_of_books_titles[i].isbn << "\n";
 		sum += convert_str_number_to_int_number(list_of_books_titles[i].amount);
 		sum_title++;
@@ -47,46 +62,39 @@ void stats_amount_of_books_genre
 )
 {
 	char current_genre[20];
-	char printed_genre[20][20] = {};
+	char printed_genre[20][31] = {};
 	int current_sum = 0;
 	int current_title_sum = 0;
-	int i = 0;
-	int j = 0;
+	int j = 0, k = 0;
 	system("cls");
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
 	cout << "|                            ~~~ Amount of books by genre in library ~~~                            |" << "\n";
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
 	cout << "|      -- ISBN --      |            -- Name --           |        -- Genre --        | -- Amount -- |" << "\n";
-	;	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
+	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
 	while (list_of_books_titles[j].genre[0] != 0)
 	{
 		strcpy_s(current_genre, list_of_books_titles[j].genre);
-		int k = 0;
-		while(printed_genre[k][0] != 0)
+		while (check_if_printed_genre(current_genre, printed_genre))
 		{
-			if(strcmp(current_genre, printed_genre[k]) == 0)
-			{
-				j++;
-				strcpy_s(current_genre, list_of_books_titles[j].genre);
-				k = -1;
-			}
-			k++;
+			j++;
+			strcpy_s(current_genre, list_of_books_titles[j].genre);
 		}
-		strcpy_s(current_genre, list_of_books_titles[j].genre);
-		strcpy_s(printed_genre[j], current_genre);
-		i = 0;
+		strcpy_s(printed_genre[k], current_genre);
+		k++;
+		int i = 0;
 		current_sum = 0;
 		current_title_sum = 0;
 		while (list_of_books_titles[i].genre[0] != 0)
 		{
-			if(strcmp(current_genre, list_of_books_titles[i].genre) == 0)
+			if (strcmp(current_genre, list_of_books_titles[i].genre) == 0)
 			{
 				cout << setw(101) << "|";
 				cout << "\r" << setw(94) << list_of_books_titles[i].amount;
 				cout << "\r" << setw(86) << "|";
 				cout << "\r" << setw(80) << list_of_books_titles[i].genre;
 				cout << "\r" << setw(58) << "|";
-				cout << "\r" << setw(50) << list_of_books_titles[i].name;
+				cout << "\r" << setw(56) << list_of_books_titles[i].name;
 				cout << "\r" << setw(24) << "|";
 				cout << "\r|     " << list_of_books_titles[i].isbn << "\n";
 				current_sum += convert_str_number_to_int_number(list_of_books_titles[i].amount);
@@ -96,7 +104,7 @@ void stats_amount_of_books_genre
 		}
 		j++;
 		cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
-		if(list_of_books_titles[j].genre[0] != 0)
+		if (list_of_books_titles[j].genre[0] != 0)
 		{
 			cout << setw(101) << "|";
 			cout << "\r" << setw(97) << "|  Total amount of book title by genre: " << current_title_sum;

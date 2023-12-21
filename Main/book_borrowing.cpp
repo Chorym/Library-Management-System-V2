@@ -117,15 +117,15 @@ bool borrow_books
 		{
 		case 0:
 			set_cursor_position(0, 6);
-			cout << "|Enter Book 1 ISBN:                  |Book 1 name: " << "\n"; //line 6
+			cout << "|Enter Book 1 ISBN:                  |Book 1 name: " << "\n"; 
 			break;
 		case 1:
 			set_cursor_position(0, 7);
-			cout << "|Enter Book 2 ISBN:                  |Book 2 name: " << "\n"; //line 7
+			cout << "|Enter Book 2 ISBN:                  |Book 2 name: " << "\n"; 
 			break;
 		case 2:
 			set_cursor_position(0, 8);
-			cout << "|Enter Book 3 ISBN:                  |Book 3 name: " << "\n"; //line 8
+			cout << "|Enter Book 3 ISBN:                  |Book 3 name: " << "\n"; 
 			break;
 		}
 		set_cursor_position(20, 6 + i);

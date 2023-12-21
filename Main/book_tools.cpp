@@ -154,6 +154,11 @@ bool add_book
 
 		//add name
 		cout << "|                                |Name: "; cin.getline(input, max_input_length);
+		while (input[0] == 0)
+		{
+			handle_add_book_error(1);
+			cin.getline(input, max_input_length);
+		}
 		strcpy_s(list_of_books_titles[i].name, input);
 		set_cursor_position(0, 14);
 		cout << "|                                |                                                                  |" << "\n";
@@ -161,9 +166,9 @@ bool add_book
 
 		//add genre
 		cout << "|                                |Genre: "; cin.getline(input, max_input_length);
-		while (check_if_input_is_pure_text(input) == false)
+		while (check_if_input_is_pure_text(input) == false || input[0] == 0)
 		{
-			handle_add_book_error(1);
+			handle_add_book_error(2);
 			cin.getline(input, max_input_length);
 		}
 		strcpy_s(list_of_books_titles[i].genre, input);
@@ -176,15 +181,15 @@ bool add_book
 		checked = false;
 		while (!checked)
 		{
-			if (check_if_input_is_pure_number(input) == false)
+			if (check_if_input_is_pure_number(input) == false || input[0] == 0)
 			{
-				handle_add_book_error(2);
+				handle_add_book_error(3);
 				cin.getline(input, max_input_length);
 				continue;
 			}
 			if (check_within_range(convert_str_number_to_int_number(input), 1, 999) == false)
 			{
-				handle_add_book_error(2);
+				handle_add_book_error(3);
 				cin.getline(input, max_input_length);
 				continue;
 			}
@@ -197,9 +202,9 @@ bool add_book
 
 		//add author
 		cout << "|                                |Author(s): "; cin.getline(input, max_input_length);
-		while (check_if_no_special_characters(input) == false)
+		while (check_if_no_special_characters(input) == false || input[0] == 0)
 		{
-			handle_add_book_error(3);
+			handle_add_book_error(4);
 			cin.getline(input, max_input_length);
 		}
 		strcpy_s(list_of_books_titles[i].author, input);
@@ -209,6 +214,11 @@ bool add_book
 
 		//add publisher
 		cout << "|--------------------------------|Publisher: "; cin.getline(input, max_input_length);
+		while (input[0] == 0)
+		{
+			handle_add_book_error(5);
+			cin.getline(input, max_input_length);
+		}
 		strcpy_s(list_of_books_titles[i].publisher, input);
 		set_cursor_position(0, 14);
 		cout << "|                                | 1900 <= year <= 2023                                             |" << "\n";
@@ -220,15 +230,15 @@ bool add_book
 		checked = false;
 		while (!checked)
 		{
-			if (check_if_input_is_pure_number(input) == false)
+			if (check_if_input_is_pure_number(input) == false || input[0] == 0)
 			{
-				handle_add_book_error(5);
+				handle_add_book_error(6);
 				cin.getline(input, max_input_length);
 				continue;
 			}
 			if (check_within_range(convert_str_number_to_int_number(input), 1900, 2023) == false)
 			{
-				handle_add_book_error(5);
+				handle_add_book_error(6);
 				cin.getline(input, max_input_length);
 				continue;
 			}
@@ -245,15 +255,15 @@ bool add_book
 		bool checked = false;
 		while (!checked)
 		{
-			if (check_if_input_is_pure_number(input) == false)
+			if (check_if_input_is_pure_number(input) == false || input[0] == 0)
 			{
-				handle_add_book_error(6);
+				handle_add_book_error(7);
 				cin.getline(input, max_input_length);
 				continue;
 			}
 			if (check_within_range(convert_str_number_to_int_number(input), 1, 999) == false)
 			{
-				handle_add_book_error(6);
+				handle_add_book_error(7);
 				cin.getline(input, max_input_length);
 				continue;
 			}
@@ -370,6 +380,11 @@ bool change_book_info
 		set_cursor_position(33, 7);
 		cout << "|Prev info: " << list_of_books_titles[book_number].name << "\n";
 		cout << "|--------------------------------|New info : "; cin.getline(new_info, max_string_length);
+		while (new_info[0] == 0)
+		{
+			handle_fix_book_error(fixing_option);
+			cin.getline(new_info, max_string_length);
+		}
 		strcpy_s(list_of_books_titles[book_number].name, new_info);
 		break;
 	}
@@ -378,7 +393,7 @@ bool change_book_info
 		set_cursor_position(33, 7);
 		cout << "|Prev info: " << list_of_books_titles[book_number].genre << "\n";
 		cout << "|--------------------------------|New info : "; cin.getline(new_info, max_string_length);
-		while (check_if_input_is_pure_text(new_info) == false)
+		while (check_if_input_is_pure_text(new_info) == false || new_info[0] == 0)
 		{
 			handle_fix_book_error(fixing_option); cin.getline(new_info, max_string_length);
 		}
@@ -395,7 +410,7 @@ bool change_book_info
 		checked = false;
 		while (!checked)
 		{
-			if (check_if_input_is_pure_number(new_info) == false)
+			if (check_if_input_is_pure_number(new_info) == false || new_info[0] == 0)
 			{
 				handle_fix_book_error(fixing_option);
 				cin.getline(new_info, max_string_length);
@@ -417,7 +432,7 @@ bool change_book_info
 		set_cursor_position(33, 7);
 		cout << "|Prev info: " << list_of_books_titles[book_number].author << "\n";
 		cout << "|--------------------------------|New info : " ; cin.getline(new_info, max_string_length);
-		while (check_if_no_special_characters(new_info) == false)
+		while (check_if_no_special_characters(new_info) == false || new_info[0] == 0)
 		{
 			handle_fix_book_error(fixing_option); cin.getline(new_info, max_string_length);
 		}
@@ -434,7 +449,7 @@ bool change_book_info
 		checked = false;
 		while (!checked)
 		{
-			if (check_if_input_is_pure_number(new_info) == false)
+			if (check_if_input_is_pure_number(new_info) == false || new_info[0] == 0)
 			{
 				handle_fix_book_error(fixing_option);
 				cin.getline(new_info, max_string_length);
@@ -456,6 +471,10 @@ bool change_book_info
 		set_cursor_position(33, 7);
 		cout << "|Prev info: " << list_of_books_titles[book_number].publisher << "\n";
 		cout << "|--------------------------------|New info : "; cin.getline(new_info, max_string_length);
+		while (new_info[0] == 0)
+		{
+			handle_fix_book_error(fixing_option); cin.getline(new_info, max_string_length);
+		}
 		strcpy_s(list_of_books_titles[book_number].publisher, new_info);
 		break;
 	}
@@ -469,7 +488,7 @@ bool change_book_info
 		checked = false;
 		while (!checked)
 		{
-			if (check_if_input_is_pure_number(new_info) == false)
+			if (check_if_input_is_pure_number(new_info) == false || new_info[0] == 0)
 			{
 				handle_fix_book_error(fixing_option);
 				cin.getline(new_info, max_string_length);
