@@ -124,28 +124,28 @@ void display_reader_info
 	int i
 )
 {
-	int form_number = find_form(list_of_readers[i].library_id, list_of_forms_for_borrowing);
+	int form_number = find_form(list_of_forms_for_borrowing, list_of_readers[i].library_id, 0);
 	//start
 	cout << "                                                                   --|--       ~~~ Notes ~~~      --|" << "\r|--                            --|--              [" << i + 1 << "]" << "\n";
 
 	//line 1
 	if(list_of_readers[i].fine[0] == 0 || strcmp(list_of_readers[i].fine, "0") == 0) cout << setw(102) << "|Fine: None                    |\r";
-	else cout << setw(102) << "|\r" << setw(76) << "|Fine: " << list_of_readers[i].fine << " 000 VND";
+	else cout << setw(102) << "|\r" << setw(76) << "|Fine: " << list_of_readers[i].fine << " 000 VND\r";
 	cout << setw(41) << "|Email: " << list_of_readers[i].email << "\r|Lib. ID: " << list_of_readers[i].library_id << "\n";
 
 	//line 2
-	if (form_number == -1 || list_of_forms_for_borrowing[form_number].borrowed_books_isbn[0] == 0) cout << setw(102) << "|Borrowing: None               |\r";
-	else cout << setw(102) << "|\r" << setw(81) << "|Borrowing: " << list_of_forms_for_borrowing[form_number].borrowed_books_isbn[0];
+	if (form_number != -1 && list_of_forms_for_borrowing[form_number].borrowed_books_isbn[0] != 0 && strcmp(list_of_forms_for_borrowing[form_number].lost_borrowed_books_isbn[0], "0") == 0) cout << setw(102) << "|\r" << setw(81) << "|Borrowing: " << list_of_forms_for_borrowing[form_number].borrowed_books_isbn[0];
+	else cout << setw(102) << "|Borrowing: None               |\r";
 	cout << "\r" << setw(50) << "|Date of birth : " << list_of_readers[i].date_of_birth << "\r|Cit. ID: " << list_of_readers[i].citizen_id << "\n";
 
 	//line 3
-	if (form_number == -1 || list_of_forms_for_borrowing[form_number].borrowed_books_isbn[1] == 0) cout << setw(102) << "|Borrowing: None               |\r";
-	else cout << setw(102) << "|\r" << setw(81) << "|Borrowing: " << list_of_forms_for_borrowing[form_number].borrowed_books_isbn[1];
+	if (form_number != -1 && list_of_forms_for_borrowing[form_number].borrowed_books_isbn[1] != 0 && strcmp(list_of_forms_for_borrowing[form_number].lost_borrowed_books_isbn[1], "0") == 0) cout << setw(102) << "|\r" << setw(81) << "|Borrowing: " << list_of_forms_for_borrowing[form_number].borrowed_books_isbn[1];
+	else cout << setw(102) << "|Borrowing: None               |\r";
 	cout << "\r" << setw(54) << "|Card creation date: " << list_of_readers[i].card_creation_date << "\r|Surname: " << list_of_readers[i].surname << "\n";
 
 	//line 4
-	if (form_number == -1 || list_of_forms_for_borrowing[form_number].borrowed_books_isbn[2] == 0) cout << setw(102) << "|Borrowing: None               |\r";
-	else cout << setw(102) << "|\r" << setw(81) << "|Borrowing: " << list_of_forms_for_borrowing[form_number].borrowed_books_isbn[2];
+	if (form_number != -1 && list_of_forms_for_borrowing[form_number].borrowed_books_isbn[2] != 0 && strcmp(list_of_forms_for_borrowing[form_number].lost_borrowed_books_isbn[2], "0") == 0) cout << setw(102) << "|\r" << setw(81) << "|Borrowing: " << list_of_forms_for_borrowing[form_number].borrowed_books_isbn[2];
+	else cout << setw(102) << "|Borrowing: None               |\r";
 	cout << "\r" << setw(56) << "|Card expiration date: " << list_of_readers[i].card_expiration_date << "\r|Name   : " << list_of_readers[i].name << "\n";
 
 	//line 5
@@ -182,10 +182,17 @@ void display_borrow_forms
 	int i
 )
 {
-	int book_number = 0;
+	bool missing_books = false;
 	cout << "|                              --|--              [" << i + 1 << "]              --|--                          --|" << "\n";
 	cout << setw(102) << "|\r" << setw(83) << "|Borrow date: " << list_of_forms_for_borrowing[i].borrow_date << "\r" << setw(42) << "|Book 1: " << list_of_forms_for_borrowing[i].borrowed_books_isbn[0] << "\r|Forms ID : " << list_of_forms_for_borrowing[i].form_id << "\n";
 	cout << setw(102) << "|\r" << setw(83) << "|Return date: " << list_of_forms_for_borrowing[i].expected_return_date << "\r" << setw(42) << "|Book 2: " << list_of_forms_for_borrowing[i].borrowed_books_isbn[1] << "\r|Reader ID: " << list_of_forms_for_borrowing[i].borrower_id << "\n";
-	cout << setw(102) << "|                              |\r" << setw(42) << "|Book 3: " << list_of_forms_for_borrowing[i].borrowed_books_isbn[2] << "\r|" << "\n";
+	cout << setw(102) << "|\r" << setw(82) << "|Lost books: ";
+	if (strcmp(list_of_forms_for_borrowing[i].lost_borrowed_books_isbn[0], "0") != 0 && strcmp(list_of_forms_for_borrowing[i].borrowed_books_isbn[0], "None") != 0) {cout << "1 "; missing_books = true;}
+	if (strcmp(list_of_forms_for_borrowing[i].lost_borrowed_books_isbn[1], "0") != 0 && strcmp(list_of_forms_for_borrowing[i].borrowed_books_isbn[1], "None") != 0) {cout << "2 "; missing_books = true;}
+	if (strcmp(list_of_forms_for_borrowing[i].lost_borrowed_books_isbn[2], "0") != 0 && strcmp(list_of_forms_for_borrowing[i].borrowed_books_isbn[2], "None") != 0) {cout << "3 "; missing_books = true;}
+	if (!missing_books) cout << "None";
+	cout << "\r" << setw(42) << "|Book 3: " << list_of_forms_for_borrowing[i].borrowed_books_isbn[2] << "\r|Status: ";
+	if (list_of_forms_for_borrowing[i].form_status == '1') cout << "Opened" << "\n";
+	else cout << "Closed" << "\n";
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
 }

@@ -11,6 +11,7 @@ void reader_menu
 void book_menu
 (
 	book_title list_of_books_titles[],
+	borrowing_book_form list_of_borrow_forms[],
 	int max_book_title_amount
 );
 		

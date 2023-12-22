@@ -3,6 +3,7 @@
 #include "basic_tools.h"
 #include "error_handing_tools.h"
 #include "verify_input_tools.h"
+#include "book_borrowing.h"
 
 using std::cout;
 using std::cin;
@@ -475,6 +476,7 @@ bool change_reader_info
 bool delete_reader_menu
 (
 	reader list_of_readers[],
+	borrowing_book_form list_of_borrow_forms[],
 	int current_amount_of_reader
 )
 {
@@ -577,6 +579,7 @@ bool delete_reader_menu
 			}
 			set_cursor_position(34, 14);
 			cout << "                       ~~~ Deleted all! ~~~                       |";
+			delete_all_forms(list_of_borrow_forms);
 			cin.ignore();
 			return true;
 		}

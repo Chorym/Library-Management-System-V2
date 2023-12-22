@@ -22,6 +22,7 @@ bool change_book_info
 bool delete_book_menu
 (
 	book_title list_of_books_titles[],
+	borrowing_book_form list_of_borrow_forms[],
 	int  current_amount_of_books
 );
 void find_book_menu

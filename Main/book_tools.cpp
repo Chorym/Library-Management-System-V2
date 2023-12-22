@@ -2,6 +2,7 @@
 #include "basic_tools.h"
 #include "error_handing_tools.h"
 #include "verify_input_tools.h"
+#include "book_borrowing.h"
 
 using std::cout;
 using std::cin;
@@ -173,7 +174,7 @@ bool add_book
 		}
 		strcpy_s(list_of_books_titles[i].genre, input);
 		set_cursor_position(0, 14);
-		cout << "|                                | 0 < price <= 999                                                 |" << "\n";
+		cout << "|                                | 0 < price <= 999 (-000 VND)                                      |" << "\n";
 		set_cursor_position(0, 6);
 
 		//add price
@@ -403,7 +404,7 @@ bool change_book_info
 	case 4:
 	{
 		set_cursor_position(0, 14);
-		cout << "|[1]: ISBN                       | 0 < price <= 999                                                 |" << "\n";
+		cout << "|[1]: ISBN                       | 0 < price <= 999 (-000 VND)                                      |" << "\n";
 		set_cursor_position(33, 7);
 		cout << "|Prev info: " << list_of_books_titles[book_number].price << "\n";
 		cout << "|--------------------------------|New info : "; cin.getline(new_info, max_string_length);
@@ -519,7 +520,8 @@ bool change_book_info
 bool delete_book_menu
 (
 	book_title list_of_books_titles[],
-	int  current_amount_of_books
+	borrowing_book_form list_of_borrow_forms[],
+	int current_amount_of_books
 )
 {
 	char input_isbn[14];
@@ -618,12 +620,15 @@ bool delete_book_menu
 				strcpy_s(list_of_books_titles[i].publisher, "");
 				strcpy_s(list_of_books_titles[i].publish_year, "");
 			}
+			set_cursor_position(0, 14);
 			cout << "\r|                                |                       ~~~ Deleted all! ~~~                       |";
+			delete_all_forms(list_of_borrow_forms);
 			cin.ignore();
 			return true;
 		}
 		else
 		{
+			set_cursor_position(0, 14);
 			cout << "\r|                                |                   ~~~ Deleting all failed! ~~~                   |";
 			cin.ignore();
 			return false;
@@ -650,7 +655,7 @@ void find_book_menu
 		if (book_number == 0) system("cls"); //only reset at first entry
 		else set_cursor_position(0, 0);
 		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; // line 1
-		cout << "|   ~~~ Readers management ~~~   |                 ~~~ Current mode : Viewing one ~~~               |" << "\n"; // line 2
+		cout << "|    ~~~ Books management ~~~    |                 ~~~ Current mode : Viewing one ~~~               |" << "\n"; // line 2
 		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; // line 3
 		cout << "|[0]: Return to menu             |                                                                  |" << "\n"; // line 4
 		cout << "|                                |                                                                  |" << "\n"; // line 5

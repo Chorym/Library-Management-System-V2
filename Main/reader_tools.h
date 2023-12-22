@@ -23,6 +23,7 @@ bool change_reader_info
 bool delete_reader_menu
 (
 	reader list_of_readers[],
+	borrowing_book_form list_of_borrow_forms[],
 	int  current_amount_of_reader
 );
 

@@ -17,15 +17,16 @@ void reader_menu
 )
 {
 	int page_number = 0;
-	int i = 0;
-	while (list_of_readers[i].library_id[0] != 0)
-	{
-		i++;
-	}
-	int current_amount_of_reader = i;
 
 	while (true)
 	{
+		int i = 0;
+		while (list_of_readers[i].library_id[0] != 0)
+		{
+			i++;
+		}
+		int current_amount_of_reader = i;
+
 		int option;
 		system("cls");
 		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; // line 0
@@ -74,6 +75,7 @@ void reader_menu
 			if (delete_reader_menu
 			(
 				list_of_readers,
+				list_of_forms_for_borrowing,
 				current_amount_of_reader
 			)) save_all_readers("readers_data_1.txt", list_of_readers);
 			break;
@@ -106,19 +108,21 @@ void reader_menu
 void book_menu
 (
 	book_title list_of_books_titles[],
+	borrowing_book_form list_of_borrow_forms[],
 	int max_book_title_amount
 )
 {
 	int page_number = 0;
-	int i = 0;
-	while (list_of_books_titles[i].isbn[0] != 0)
-	{
-		i++;
-	}
-	int current_amount_of_book = i;
 
 	while (true)
 	{
+		int i = 0;
+		while (list_of_books_titles[i].isbn[0] != 0)
+		{
+			i++;
+		}
+		int current_amount_of_book = i;
+
 		int option;
 		system("cls");
 		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; // line 0
@@ -167,6 +171,7 @@ void book_menu
 			if (delete_book_menu
 			(
 				list_of_books_titles,
+				list_of_borrow_forms,
 				current_amount_of_book
 			)) save_all_books("books_data_1.txt", list_of_books_titles);
 			break;
@@ -204,36 +209,37 @@ void borrow_books_menu
 {
 	int option = 0;
 	int page_number = 0;
-	int i = 0;
-	int j = 0;
-	while (list_of_forms_for_borrowing[j].form_id[0] != 0)
-	{
-		j++;
-	}
-	int current_amount_of_forms = j;
 
 	while (true)
 	{
+		int i = 0;
+		int j = 0;
+		while (list_of_forms_for_borrowing[j].form_id[0] != 0)
+		{
+			j++;
+		}
+		int current_amount_of_forms = j;
+
 		system("cls");
 		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 0
 		cout << "|                               ~~~ Borrowing and returning books ~~~                               |" << "\n"; //line 1
 		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 2
-		cout << "|[0]: Return to main menu       |                                                                   |" << "\n"; //line 3
-		cout << "|[1]: Borrow books              |                                                                   |" << "\n"; //line 4
-		cout << "|[2]: Return books              |                                                                   |" << "\n"; //line 5
-		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 6
-		cout << "|[8]: Next page   Prev Page :[9]|                                                                   |" << "\n"; //line 7
-		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 8
+		cout << "|[0]: Return to main menu              |                                                            |" << "\n"; //line 3
+		cout << "|[1]: Borrow books                     |                                                            |" << "\n"; //line 4
+		cout << "|[2]: Return books                     |                                                            |" << "\n"; //line 5
+		cout << "|[3]: Repay fine and return lost books |                                                            |" << "\n"; //line 6
+		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 7
+		cout << "|[8]: Next page          Prev Page :[9]|                                                            |" << "\n"; //line 8
+		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 9
 		view_all_borrowings(list_of_readers, list_of_books_titles, list_of_forms_for_borrowing, page_number);
 
 		option = int(_getch() - 48);
-		while (option != 0 && option != 1 && option != 2 && option != 8 && option != 9)
+		while (option != 0 && option != 1 && option != 2 && option != 3 && option != 8 && option != 9)
 		{
-			set_cursor_position(34, 7);
-			cout << "               ~~~ Error: Option doesn't exist! ~~~               ";
+			set_cursor_position(40, 8);
+			cout << "            ~~~ Error: Option doesn't exist! ~~~";
 			option = int(_getch() - 48);
 		}
-
 		switch (option)
 		{
 		case 0:
@@ -254,6 +260,14 @@ void borrow_books_menu
 				list_of_books_titles,
 				list_of_forms_for_borrowing,
 				current_amount_of_forms
+			)) save_all_borrow_forms("borrow_forms_data_1.txt", list_of_forms_for_borrowing);
+			break;
+		case 3:
+			if (repay_fine
+			(
+				list_of_readers,
+				list_of_books_titles,
+				list_of_forms_for_borrowing
 			)) save_all_borrow_forms("borrow_forms_data_1.txt", list_of_forms_for_borrowing);
 			break;
 		case 8:

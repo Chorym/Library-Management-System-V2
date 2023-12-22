@@ -71,6 +71,7 @@ int main()
 			book_menu
 			(
 				list_of_books_titles,
+				list_of_forms_for_borrowing,
 				max_book_title_amount
 			);
 			break;

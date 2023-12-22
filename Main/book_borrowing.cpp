@@ -9,6 +9,73 @@
 using std::cout;
 using std::cin;
 
+//accepts a reader library id
+//return the corresponding position in the array holding the form id with said library
+int find_form
+(
+	borrowing_book_form list_of_forms_for_borrowing[],
+	char input_library_id[],
+	char input_form_id[]
+)
+{
+	int i = 0;
+	if(input_library_id != 0)
+	{
+		while (list_of_forms_for_borrowing[i].borrower_id[0] != 0)
+		{
+			if (strcmp(list_of_forms_for_borrowing[i].borrower_id, input_library_id) == 0) return i;
+			i++;
+		}
+	}
+	else
+	{
+		while (list_of_forms_for_borrowing[i].form_id[0] != 0)
+		{
+			if (strcmp(list_of_forms_for_borrowing[i].form_id, input_form_id) == 0) return i;
+			i++;
+		}
+	}
+	return -1;
+}
+
+//delete all forms data
+void delete_all_forms(borrowing_book_form list_of_forms_for_borrowing[])
+{
+	for (int i = 0; list_of_forms_for_borrowing[i].form_id[0] != 0; i++)
+	{
+		strcpy_s(list_of_forms_for_borrowing[i].form_id, "");
+		strcpy_s(list_of_forms_for_borrowing[i].borrower_id, "");
+		strcpy_s(list_of_forms_for_borrowing[i].expected_return_date, "");
+		strcpy_s(list_of_forms_for_borrowing[i].borrow_date, "");
+		strcpy_s(list_of_forms_for_borrowing[i].borrowed_books_isbn[0], "");
+		strcpy_s(list_of_forms_for_borrowing[i].borrowed_books_isbn[1], "");
+		strcpy_s(list_of_forms_for_borrowing[i].borrowed_books_isbn[2], "");
+	}
+}
+
+//delete one form data at any position picked
+void delete_one_form(borrowing_book_form list_of_forms_for_borrowing[], int position)
+{
+	for (int i = position; list_of_forms_for_borrowing[i].form_id[0] != 0 && list_of_forms_for_borrowing[i + 1].form_id[0] != 0 ; i++)
+	{
+		strcpy_s(list_of_forms_for_borrowing[i].form_id, list_of_forms_for_borrowing[i + 1].form_id);
+		strcpy_s(list_of_forms_for_borrowing[i].borrower_id, list_of_forms_for_borrowing[i + 1].borrower_id);
+		strcpy_s(list_of_forms_for_borrowing[i].borrowed_books_isbn[0], list_of_forms_for_borrowing[i + 1].borrowed_books_isbn[0]);
+		strcpy_s(list_of_forms_for_borrowing[i].borrowed_books_isbn[1], list_of_forms_for_borrowing[i + 1].borrowed_books_isbn[1]);
+		strcpy_s(list_of_forms_for_borrowing[i].borrowed_books_isbn[2], list_of_forms_for_borrowing[i + 1].borrowed_books_isbn[2]);
+		strcpy_s(list_of_forms_for_borrowing[i].borrow_date, list_of_forms_for_borrowing[i + 1].borrow_date);
+		strcpy_s(list_of_forms_for_borrowing[i].expected_return_date, list_of_forms_for_borrowing[i + 1].expected_return_date);
+		position++;
+	}
+	strcpy_s(list_of_forms_for_borrowing[position].form_id, "");
+	strcpy_s(list_of_forms_for_borrowing[position].borrower_id, "");
+	strcpy_s(list_of_forms_for_borrowing[position].expected_return_date, "");
+	strcpy_s(list_of_forms_for_borrowing[position].borrow_date, "");
+	strcpy_s(list_of_forms_for_borrowing[position].borrowed_books_isbn[0], "");
+	strcpy_s(list_of_forms_for_borrowing[position].borrowed_books_isbn[1], "");
+	strcpy_s(list_of_forms_for_borrowing[position].borrowed_books_isbn[2], "");
+}
+
 //display menu
 //prints every form all of its info, with each page holding 5
 void view_all_borrowings
@@ -90,13 +157,26 @@ bool borrow_books
 	//get reader
 	set_cursor_position(18, 3);
 	cin.getline(input, max_input_length);
-	if (strcmp(input, "0") == 0) return false;
 	reader_number = find_reader(list_of_readers, input, 0, 0);
-	while (reader_number == -1)
+	bool checked = false;
+	while (!checked)
 	{
-		handle_add_form_error(0, 0);
-		cin.getline(input, max_input_length);
-		reader_number = find_reader(list_of_readers, input, 0, 0);
+		if (strcmp(input, "0") == 0) return false;
+		if (reader_number == -1)
+		{
+			handle_add_form_error(0, 0);
+			cin.getline(input, max_input_length);
+			reader_number = find_reader(list_of_readers, input, 0, 0);
+			continue;
+		}
+		if (find_form(list_of_forms_for_borrowing, input, 0) != -1)
+		{
+			handle_add_form_error(1, 0);
+			cin.getline(input, max_input_length);
+			reader_number = find_reader(list_of_readers, input, 0, 0);
+			continue;
+		}
+		checked = true;
 	}
 	strcpy_s(list_of_forms_for_borrowing[current_amount_of_forms].borrower_id, input);
 	set_cursor_position(51, 3);
@@ -107,7 +187,7 @@ bool borrow_books
 	amount_of_different_title_to_borrow = int(_getch() - 48);
 	while (amount_of_different_title_to_borrow > current_amount_of_book || (amount_of_different_title_to_borrow > 3 || amount_of_different_title_to_borrow < 1))
 	{
-		handle_add_form_error(0, 0);
+		handle_add_form_error(2, 0);
 		amount_of_different_title_to_borrow = int(_getch() - 48);
 	}
 
@@ -135,13 +215,13 @@ bool borrow_books
 		{
 			if(book_number == -1)
 			{
-				handle_add_form_error(2, i);
+				handle_add_form_error(3, i);
 				cin.getline(input, max_input_length);
 				book_number = find_book(list_of_books_titles, input, 0);
 			}
 			else
 			{
-				handle_add_form_error(3, i);
+				handle_add_form_error(4, i);
 				cin.getline(input, max_input_length);
 				book_number = find_book(list_of_books_titles, input, 0);
 			}
@@ -175,19 +255,19 @@ bool borrow_books
 	set_cursor_position(37, 4);
 	cout << "|Return date: ";
 	cin.getline(input, max_input_length);
-	bool checked = false;
+	checked = false;
 	while (!checked)
 	{
 		if (check_date_validity(input) == false)
 		{
-			handle_add_form_error(5, 0);
+			handle_add_form_error(6, 0);
 			cin.getline(input, max_input_length);
 			continue;
 		}
 		int return_day = convert_date_to_day(input);
-		if (return_day - borrow_day <= 0)
+		if (return_day - borrow_day <= 0 || find_distance_between_2_dates(current_date, input) > 7)
 		{
-			handle_add_form_error(5, 0);
+			handle_add_form_error(6, 0);
 			cin.getline(input, max_input_length);
 			continue;
 		}
@@ -252,7 +332,7 @@ bool return_books
 	//check status, if == [days left], good
 	//if == overdue, no good, punished accordingly to the time overdue
 	//amount in stock ++;
-	bool overdue = false;
+	bool status_opened = true;
 	int fine = 0;
 	int days_overdue;
 	int form_number;
@@ -288,14 +368,14 @@ bool return_books
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 9
 	cout << "|                                |                                                                  |" << "\n"; //line 10
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 11
-	set_cursor_position(49, 3); cin.getline(input, max_string_length);
+	set_cursor_position(49, 3);  cin.getline(input, max_string_length);
 
 	//find form 
 	int i = 0;
 	while (true)
 	{
 		if (strcmp(input, "0") == 0) return false;
-		if (i == current_amount_of_forms + 1)
+		if (i == current_amount_of_forms + 1 || list_of_forms_for_borrowing[i].form_status == '0')
 		{
 			i = 0;
 			handle_return_form_error(0);
@@ -335,11 +415,7 @@ bool return_books
 	{
 		//
 		book_number = find_book(list_of_books_titles, list_of_forms_for_borrowing[form_number].borrowed_books_isbn[j], 0);
-		int temp = convert_str_number_to_int_number(list_of_books_titles[book_number].amount);
-		temp++;
-		char temp2[5] = {};
-		_itoa_s(temp, temp2, 10);
-		strcpy_s(list_of_books_titles[book_number].amount, temp2);
+		if (book_number == -1) continue;
 		//
 		if (list_of_forms_for_borrowing[form_number].borrowed_books_isbn[j] == 0) break;
 		set_cursor_position(0, 6 + j);
@@ -369,8 +445,18 @@ bool return_books
 		}
 		if (book_status == 2)
 		{
+			status_opened = false;
+			strcpy_s(list_of_forms_for_borrowing[form_number].lost_borrowed_books_isbn[book_number - 1], 2, "1");
 			price_of_current_book = convert_str_number_to_int_number(list_of_books_titles[book_number].price);
 			fine += 2 * price_of_current_book;
+		}
+		else
+		{
+			int temp = convert_str_number_to_int_number(list_of_books_titles[book_number].amount);
+			temp++;
+			char temp2[5] = {};
+			_itoa_s(temp, temp2, 10);
+			strcpy_s(list_of_books_titles[book_number].amount, temp2);
 		}
 	}
 	char temp[5] = { 0 };
@@ -378,41 +464,134 @@ bool return_books
 	int reader_number = find_reader(list_of_readers, list_of_forms_for_borrowing[form_number].borrower_id, 0, 0);
 	strcpy_s(list_of_readers[reader_number].fine, temp);
 
-	//after done, remove form
-	strcpy_s(list_of_forms_for_borrowing[form_number].form_id, "");
-	strcpy_s(list_of_forms_for_borrowing[form_number].borrower_id, "");
-	strcpy_s(list_of_forms_for_borrowing[form_number].borrowed_books_isbn[0], "");
-	strcpy_s(list_of_forms_for_borrowing[form_number].borrowed_books_isbn[1], "");
-	strcpy_s(list_of_forms_for_borrowing[form_number].borrowed_books_isbn[2], "");
-	strcpy_s(list_of_forms_for_borrowing[form_number].borrow_date, "");
-	strcpy_s(list_of_forms_for_borrowing[form_number].expected_return_date, "");
-
-	for (int i = form_number; i < current_amount_of_forms; i++)
+	if (status_opened == true)
 	{
-		strcpy_s(list_of_forms_for_borrowing[i].form_id, list_of_forms_for_borrowing[i + 1].form_id);
-		strcpy_s(list_of_forms_for_borrowing[i].borrower_id, list_of_forms_for_borrowing[i + 1].borrower_id);
-		strcpy_s(list_of_forms_for_borrowing[i].borrowed_books_isbn[0], list_of_forms_for_borrowing[i + 1].borrowed_books_isbn[0]);
-		strcpy_s(list_of_forms_for_borrowing[i].borrowed_books_isbn[1], list_of_forms_for_borrowing[i + 1].borrowed_books_isbn[1]);
-		strcpy_s(list_of_forms_for_borrowing[i].borrowed_books_isbn[2], list_of_forms_for_borrowing[i + 1].borrowed_books_isbn[2]);
-		strcpy_s(list_of_forms_for_borrowing[i].borrow_date, list_of_forms_for_borrowing[i + 1].borrow_date);
-		strcpy_s(list_of_forms_for_borrowing[i].expected_return_date, list_of_forms_for_borrowing[i + 1].expected_return_date);
+		//after done, remove form
+		delete_one_form(list_of_forms_for_borrowing, form_number);
 	}
+	else list_of_forms_for_borrowing[form_number].form_status = '0';
+
+	cin.ignore();
 	return true;
 }
 
-//accepts a reader library id
-//return the corresponding position in the array holding the form id with said library
-int find_form
+bool repay_fine
 (
-	char input_id[], 
-	borrowing_book_form list_of_forms_for_borrowing[]
+	reader list_of_readers[],
+	book_title list_of_book_titles[],
+	borrowing_book_form list_of_borrowing_forms[]
 )
 {
-	int i = 0;
-	while (list_of_forms_for_borrowing[i].borrower_id[0] != 0)
+	char confirm_input[8];
+	char input_form_id[9];
+	int  form_number = 0;
+
+	if (list_of_borrowing_forms[0].form_id[0] == 0)
 	{
-		if (strcmp(list_of_forms_for_borrowing[i].borrower_id, input_id) == 0) return i;
-		i++;
+		system("cls");
+		cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
+		cout << "|[0]: Return to menu                     ~~~ Repay fines ~~~                                        |" << "\n";
+		cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
+		cout << "|                                                                                                   |" << "\n";
+		cout << "|                                 ~~~ Nobody is borrowing books ~~~                                 |" << "\n";
+		cout << "|                                                                                                   |" << "\n";
+		cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
+		system("pause");
+		return false;
 	}
-	return -1;
+
+	while (true)
+	{
+		system("cls");
+		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 0
+		cout << "|[0]: Return to menu                     ~~~ Repay fines ~~~                                        |" << "\n"; //line 1
+		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 2
+		cout << "|Enter form ID:                  |                                                                  |" << "\n"; //line 3
+		cout << "|                                |                                                                  |" << "\n"; //line 4
+		cout << "|                                |                                                                  |" << "\n"; //line 5
+		cout << "|                                |                                                                  |" << "\n"; //line 6
+		cout << "|                                |                                                                  |" << "\n"; //line 7
+		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 8
+		cout << "|                                |                                                                  |" << "\n"; //line 9
+		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; //line 10
+		
+		set_cursor_position(16, 3); cin.getline(input_form_id, 9);
+		form_number = find_form(list_of_borrowing_forms, 0, input_form_id); 
+
+		bool checked = false;
+		while (!checked)
+		{
+			if (strcmp(input_form_id, "0") == 0) return false;
+			if (form_number == -1 || list_of_borrowing_forms[form_number].form_status == '1')
+			{
+				//
+				set_cursor_position(35, 9);
+				cout << "        ~~~ Error: Can't find form or form is opened ~~~         ";
+				set_cursor_position(0, 3);
+				cout << "|Enter form ID:                  ";
+				set_cursor_position(16, 3);
+				//
+				cin.getline(input_form_id, 9);
+				form_number = find_form(list_of_borrowing_forms, 0, input_form_id);
+				continue;
+			}
+			checked = true;
+		}
+		set_cursor_position(35, 3);
+		cout << "Lost books: \n";
+		for (int i = 0; i < 3; i++)
+		{
+			if (list_of_borrowing_forms[form_number].borrowed_books_isbn[i] != "None" && strcmp(list_of_borrowing_forms[form_number].lost_borrowed_books_isbn[i], "0") != 0)
+			{
+				set_cursor_position(35, 4 + i);
+				cout << list_of_borrowing_forms[form_number].borrowed_books_isbn[i] << "\n";
+			}
+		}
+
+		set_cursor_position(0, 11);
+		display_borrow_forms(list_of_borrowing_forms, form_number);
+
+		set_cursor_position(34, 9);
+		cout << "   Type CONFIRM to return books and remove fine: ";
+		cin.getline(confirm_input, 9);
+		if (strcmp(confirm_input, "CONFIRM") == 0)
+		{
+			//
+			for (int i = 0; i < 3; i++)
+			{
+				if (list_of_borrowing_forms[form_number].borrowed_books_isbn[i] != "None" && strcmp(list_of_borrowing_forms[form_number].lost_borrowed_books_isbn[i], "0") != 0)
+				{
+					int book_number = find_book(list_of_book_titles, list_of_borrowing_forms[form_number].borrowed_books_isbn[i], 0);
+					int current_book_amount = convert_str_number_to_int_number(list_of_book_titles[book_number].amount);
+					current_book_amount++;
+					char temp[4] = {};
+					_itoa_s(current_book_amount, temp, 10);
+					strcpy_s(list_of_book_titles[book_number].amount, 4, temp);
+				}
+			}
+			int reader_number = find_reader(list_of_readers, list_of_borrowing_forms[form_number].borrower_id, 0, 0);
+			strcpy_s(list_of_readers[reader_number].fine, "0");
+			//
+
+			//
+			delete_one_form(list_of_borrowing_forms, form_number);
+			//
+
+			
+			set_cursor_position(34, 9);
+			cout << "                    ~~~ Return successfull ~~~            ";
+			cin.ignore();
+			return true;
+		}
+		else
+		{
+			set_cursor_position(34, 9);
+			cout << "                      ~~~ Return failed! ~~~            ";
+			cin.ignore();
+			return false;
+		}
+	}
 }
+
+
+

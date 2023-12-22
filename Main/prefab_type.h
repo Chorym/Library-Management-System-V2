@@ -34,5 +34,7 @@ struct borrowing_book_form
 	char borrow_date[11];
 	char expected_return_date[11];
 	char borrowed_books_isbn[3][14];
+	char form_status;
+	char lost_borrowed_books_isbn[3][2];
 };
 

@@ -23,6 +23,16 @@ bool return_books
 );
 int find_form
 (
-	char input_id[],
-	borrowing_book_form list_of_forms_for_borrowing[]
+	borrowing_book_form list_of_forms_for_borrowing[],
+	char input_library_id[],
+	char input_form_id[]
 );
+bool repay_fine
+(
+	reader list_of_readers[],
+	book_title list_of_book_titles[],
+	borrowing_book_form list_of_borrowing_forms[]
+);
+
+void delete_all_forms(borrowing_book_form list_of_forms_for_borrowing[]);
+void delete_one_form(borrowing_book_form list_of_forms_for_borrowing[], int position);

@@ -111,17 +111,21 @@ void load_all_borrow_forms(const char* file_name, borrowing_book_form list_of_bo
 		exit(0);
 	}
 
-	while ((num = fscanf_s(file_pointer, "%8[^,],%8[^,],%10[^,],%10[^,],%13[^,],%13[^,],%13[^.].\n",
+	while ((num = fscanf_s(file_pointer, "%8[^,],%8[^,],%10[^,],%10[^,],%13[^,],%13[^,],%13[^,],%c,%1[^,],%1[^,],%1[^.].\n",
 		list_of_borrow_forms[i].form_id, 9,
 		list_of_borrow_forms[i].borrower_id, 9,
 		list_of_borrow_forms[i].borrow_date, 11,
 		list_of_borrow_forms[i].expected_return_date, 11,
 		list_of_borrow_forms[i].borrowed_books_isbn[0], 14,
 		list_of_borrow_forms[i].borrowed_books_isbn[1], 14,
-		list_of_borrow_forms[i].borrowed_books_isbn[2], 14
+		list_of_borrow_forms[i].borrowed_books_isbn[2], 14,
+		&list_of_borrow_forms[i].form_status, 1,
+		list_of_borrow_forms[i].lost_borrowed_books_isbn[0], 2,
+		list_of_borrow_forms[i].lost_borrowed_books_isbn[1], 2,
+		list_of_borrow_forms[i].lost_borrowed_books_isbn[2], 2
 	)) != EOF && i < current_number_of_forms - 1)
 	{
-		if (num != 7)
+		if (num != 11)
 		{
 			cout << "Data failed to load! Closing program..." << "\n";
 			cout << "Error: Can't read data" << "\n";
@@ -219,14 +223,18 @@ bool save_all_borrow_forms(const char* file_name, borrowing_book_form list_of_bo
 	fprintf_s(file_pointer, "%d\n", current_number_of_forms);
 	for (int i = 0; i < current_number_of_forms; i++)
 	{
-		fprintf_s(file_pointer, "%s,%s,%s,%s,%s,%s,%s.\n",
+		fprintf_s(file_pointer, "%s,%s,%s,%s,%s,%s,%s,%c,%s,%s,%s.\n",
 			list_of_borrow_forms[i].form_id, 
 			list_of_borrow_forms[i].borrower_id, 
 			list_of_borrow_forms[i].borrow_date, 
 			list_of_borrow_forms[i].expected_return_date, 
 			list_of_borrow_forms[i].borrowed_books_isbn[0], 
 			list_of_borrow_forms[i].borrowed_books_isbn[1], 
-			list_of_borrow_forms[i].borrowed_books_isbn[2]
+			list_of_borrow_forms[i].borrowed_books_isbn[2],
+			list_of_borrow_forms[i].form_status,
+			list_of_borrow_forms[i].lost_borrowed_books_isbn[0],
+			list_of_borrow_forms[i].lost_borrowed_books_isbn[1],
+			list_of_borrow_forms[i].lost_borrowed_books_isbn[2]
 		);
 	}
 	fclose(file_pointer);
@@ -334,17 +342,21 @@ bool the_bullshiter
 		exit(0);
 	}
 	cout << current_number_of_forms << "\n";
-	while ((num = fscanf_s(file_pointer, "%8[^,],%8[^,],%10[^,],%10[^,],%13[^,],%13[^,],%13[^.].\n",
+	while ((num = fscanf_s(file_pointer, "%8[^,],%8[^,],%10[^,],%10[^,],%13[^,],%13[^,],%13[^,],%c,%1[^,],%1[^,],%1[^.].\n",
 		list_of_borrow_forms[i].form_id, 9,
 		list_of_borrow_forms[i].borrower_id, 9,
 		list_of_borrow_forms[i].borrow_date, 11,
 		list_of_borrow_forms[i].expected_return_date, 11,
 		list_of_borrow_forms[i].borrowed_books_isbn[0], 14,
 		list_of_borrow_forms[i].borrowed_books_isbn[1], 14,
-		list_of_borrow_forms[i].borrowed_books_isbn[2], 14
+		list_of_borrow_forms[i].borrowed_books_isbn[2], 14,
+		&list_of_borrow_forms[i].form_status, 1,
+		list_of_borrow_forms[i].lost_borrowed_books_isbn[0], 2,
+		list_of_borrow_forms[i].lost_borrowed_books_isbn[1], 2,
+		list_of_borrow_forms[i].lost_borrowed_books_isbn[2], 2
 	)) != EOF && i < current_number_of_forms - 1)
 	{
-		if (num != 7)
+		if (num != 11)
 		{
 			cout << "Data failed to load! Closing program..." << "\n";
 			cout << "Error: Can't read data form" << "\n";

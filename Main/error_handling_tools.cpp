@@ -193,7 +193,7 @@ void handle_add_book_error(int error_case)
 	case 3:
 	{
 		set_cursor_position(0, 14);
-		cout << "|                                | 0 < price <= 999          ~~~ Error: Invalid price ~~~           |";
+		cout << "|                                | 0 < price <= 999 (-000 VND)     ~~~ Error: Invalid price ~~~     |";
 		set_cursor_position(0, 6);
 		cout << "|                                |Price:                                                            |";
 		set_cursor_position(41, 6);
@@ -262,7 +262,7 @@ void handle_fix_book_error(int error_case)
 	case 4:
 	{
 		set_cursor_position(0, 14);
-		cout << "|[1]: ISBN                       | 0 < price <= 999          ~~~ Error: Invalid price ~~~           |";
+		cout << "|[1]: ISBN                       | 0 < price <= 999 (-000 VND)     ~~~ Error: Invalid price ~~~     |";
 		break;
 	}
 	case 5:
@@ -359,13 +359,22 @@ void handle_add_form_error(int error_case, int i)
 	case 1:
 	{
 		set_cursor_position(37, 10);
+		cout << "|    ~~~ Error: This reader is already borrowing books! ~~~";
+		set_cursor_position(18, 3);
+		cout << "                  ";
+		set_cursor_position(0, 3); cout << "|Enter Reader ID: ";
+		break;
+	}
+	case 2:
+	{
+		set_cursor_position(37, 10);
 		cout << "|               ~~~ Error: Invalid value! ~~~";
 		set_cursor_position(33, 6);
 		cout << "    ";
 		set_cursor_position(33, 6);
 		break;
 	}
-	case 2:
+	case 3:
 	{
 		set_cursor_position(37, 10);
 		cout << "|                ~~~ Error: Can't find book ~~~";
@@ -374,8 +383,9 @@ void handle_add_form_error(int error_case, int i)
 		set_cursor_position(0, 6 + i); cout << "|Enter Book " << i + 1 << " ISBN: ";
 		break;
 	}
-	case 3:
+	case 4:
 	{
+
 		set_cursor_position(37, 10);
 		cout << "|               ~~~ Error: This book ran out ~~~";
 		set_cursor_position(0, 6 + i);
@@ -383,7 +393,7 @@ void handle_add_form_error(int error_case, int i)
 		set_cursor_position(0, 6 + i); cout << "|Enter Book " << i + 1 << " ISBN: ";
 		break;
 	}
-	case 4:
+	case 5:
 	{
 		set_cursor_position(37, 10);
 		cout << "|                  ~~~ Error: Invalid date ~~~";
@@ -392,7 +402,7 @@ void handle_add_form_error(int error_case, int i)
 		set_cursor_position(14, 4);
 		break;
 	}
-	case 5:
+	case 6:
 	{
 		set_cursor_position(37, 10);
 		cout << "|                  ~~~ Error: Invalid date ~~~";
@@ -410,7 +420,7 @@ void handle_return_form_error(int error_case)
 	{
 	case 0:
 	{
-		set_cursor_position(34, 10); cout << "                  ~~~ Error: Can't find form! ~~~";
+		set_cursor_position(34, 10); cout << "         ~~~ Error: Can't find form or form is closed ~~~";
 		set_cursor_position(49, 3);
 		cout << "                                                   ";
 		set_cursor_position(49, 3);
