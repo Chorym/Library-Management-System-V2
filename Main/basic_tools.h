@@ -20,6 +20,7 @@ void display_book_info
 
 void display_borrow_forms
 (
+	reader list_of_readers[],
 	borrowing_book_form list_of_forms_for_borrowing[],
 	int i
 );

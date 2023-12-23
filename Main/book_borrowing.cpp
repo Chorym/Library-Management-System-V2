@@ -97,7 +97,7 @@ void view_all_borrowings
 	int i = page_number * 5;
 	while (list_of_forms_for_borrowing[i].form_id[0] != 0)
 	{
-		display_borrow_forms(list_of_forms_for_borrowing, i);
+		display_borrow_forms(list_of_readers, list_of_forms_for_borrowing, i);
 		i++;
 		if (i % 5 == 0)
 		{
@@ -390,7 +390,7 @@ bool return_books
 	}
 	form_number = i;
 	set_cursor_position(0, 12);
-	display_borrow_forms(list_of_forms_for_borrowing, form_number);
+	display_borrow_forms(list_of_readers, list_of_forms_for_borrowing, form_number);
 
 	//get borrow day
 	char borrow_day[11];
@@ -407,6 +407,7 @@ bool return_books
 	{
 		days_overdue = find_distance_between_2_dates(current_date, borrow_day) - 7;
 		fine += 5 * days_overdue;
+		status_opened = false;
 	}
 
 	//book stuff
@@ -475,6 +476,10 @@ bool return_books
 	return true;
 }
 
+//function check if form is closed
+//if closed, if there is any lost books or fine left to be paid, it will display them
+//type "CONFIRM" to confirm that the payment was made
+//form will be deleted after payment and return, else form will remain on
 bool repay_fine
 (
 	reader list_of_readers[],
@@ -517,6 +522,7 @@ bool repay_fine
 		
 		set_cursor_position(16, 3); cin.getline(input_form_id, 9);
 		form_number = find_form(list_of_borrowing_forms, 0, input_form_id); 
+		int reader_number = find_reader(list_of_readers, list_of_borrowing_forms[form_number].borrower_id, 0, 0);
 
 		bool checked = false;
 		while (!checked)
@@ -547,12 +553,14 @@ bool repay_fine
 				cout << list_of_borrowing_forms[form_number].borrowed_books_isbn[i] << "\n";
 			}
 		}
+		set_cursor_position(35, 7);
+		cout << "Amount to be returned: " << list_of_readers[find_reader(list_of_readers, list_of_borrowing_forms[form_number].borrower_id, 0, 0)].fine << " 000 VND" << "\n";
 
 		set_cursor_position(0, 11);
-		display_borrow_forms(list_of_borrowing_forms, form_number);
+		display_borrow_forms(list_of_readers, list_of_borrowing_forms, form_number);
 
 		set_cursor_position(34, 9);
-		cout << "   Type CONFIRM to return books and remove fine: ";
+		cout << " Type CONFIRM to return books and remove fine: ";
 		cin.getline(confirm_input, 9);
 		if (strcmp(confirm_input, "CONFIRM") == 0)
 		{
@@ -569,7 +577,7 @@ bool repay_fine
 					strcpy_s(list_of_book_titles[book_number].amount, 4, temp);
 				}
 			}
-			int reader_number = find_reader(list_of_readers, list_of_borrowing_forms[form_number].borrower_id, 0, 0);
+			
 			strcpy_s(list_of_readers[reader_number].fine, "0");
 			//
 

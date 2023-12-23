@@ -2,6 +2,7 @@
 #include "prefab_type.h"
 #include "book_tools.h"
 #include "book_borrowing.h"
+#include "reader_tools.h"
 
 using std::cout;
 using std::setw;
@@ -178,6 +179,7 @@ void display_book_info
 //print a formatted screen holding every information of a borrowing books form
 void display_borrow_forms
 (
+	reader list_of_readers[],
 	borrowing_book_form list_of_forms_for_borrowing[],
 	int i
 )
@@ -193,6 +195,11 @@ void display_borrow_forms
 	if (!missing_books) cout << "None";
 	cout << "\r" << setw(42) << "|Book 3: " << list_of_forms_for_borrowing[i].borrowed_books_isbn[2] << "\r|Status: ";
 	if (list_of_forms_for_borrowing[i].form_status == '1') cout << "Opened" << "\n";
-	else cout << "Closed" << "\n";
+	else
+	{
+		cout << "Closed" << "\n";
+		cout << setw(102) << "|\r" << setw(71) << "|\r" << setw(35) << "|\r" << "|Fine: " << list_of_readers[find_reader(list_of_readers, list_of_forms_for_borrowing[i].borrower_id, 0, 0)].fine << " 000 VND" << "\n";
+	}
+
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
 }
