@@ -561,7 +561,7 @@ bool delete_book_menu
 	{
 		set_cursor_position(0, 9);
 		cout << "|Delete option : Delete 1" << "\n";
-		cout << "\r|Enter ISBN : "; cin.getline(input_isbn, 9);
+		cout << "\r|Enter ISBN : "; cin.getline(input_isbn, 14);
 		i = find_book(list_of_books_titles, input_isbn, 0);
 		while (i == -1)
 		{
@@ -569,7 +569,8 @@ bool delete_book_menu
 			cout << "             ~~~ Error: Book doesn't exist in lib ~~~             ";
 			set_cursor_position(0, 10);
 			cout << "|                                ";
-			cout << "\r|Enter ISBN : "; cin.getline(input_isbn, 30);
+			cout << "\r|Enter ISBN : ";
+			cin.getline(input_isbn, 14);
 			i = find_book(list_of_books_titles, input_isbn, 0);
 		}
 		while (true)

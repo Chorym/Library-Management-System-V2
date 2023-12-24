@@ -522,7 +522,12 @@ bool delete_reader_menu
 		i = find_reader(list_of_readers, input_id, 0, 0);
 		while (i == -1)
 		{
-			//error
+			set_cursor_position(34, 14);
+			cout << "            ~~~ Error: Reader doesn't exist in lib ~~~";
+			set_cursor_position(0, 10);
+			cout << "|                                ";
+			cout << "\r|Enter Lib. ID : ";
+			cin.getline(input_id, 9);
 			i = find_reader(list_of_readers, input_id, 0, 0);
 		}
 		//display user found, type confirm to delete
