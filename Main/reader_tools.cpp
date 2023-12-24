@@ -615,8 +615,7 @@ void find_reader_menu
 
 	while (true)
 	{
-		if (reader_number == 0) system("cls"); //only reset at first entry
-		else set_cursor_position(0, 0);
+		system("cls");
 		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; // line 1
 		cout << "|   ~~~ Readers management ~~~   |                 ~~~ Current mode : Viewing one ~~~               |" << "\n"; // line 2
 		cout << "|---------------------------------------------------------------------------------------------------|" << "\n"; // line 3

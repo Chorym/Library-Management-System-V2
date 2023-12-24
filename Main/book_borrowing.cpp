@@ -480,6 +480,7 @@ bool return_books
 //if closed, if there is any lost books or fine left to be paid, it will display them
 //type "CONFIRM" to confirm that the payment was made
 //form will be deleted after payment and return, else form will remain on
+//form will display the books missing as well as the fine needed to be paid
 bool repay_fine
 (
 	reader list_of_readers[],

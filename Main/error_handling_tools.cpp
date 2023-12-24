@@ -3,7 +3,6 @@
 
 using std::cout;
 
-//not done, some value and user format are missing
 void handle_add_reader_error(int error_case)
 {
 	set_cursor_position(33, 3 + error_case);

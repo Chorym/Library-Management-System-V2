@@ -14,6 +14,7 @@ void load_all_readers(const char* file_name, reader list_of_readers[])
 	{
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't open file" << "\n";
+		cout << "File name required: " << file_name << "\n";
 		exit(0);
 	}
 
@@ -59,6 +60,7 @@ void load_all_books(const char* file_name, book_title list_of_book_titles[])
 	{
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't open file" << "\n";
+		cout << "File name required: " << file_name << "\n";
 		exit(0);
 	}
 
@@ -100,6 +102,8 @@ void load_all_borrow_forms(const char* file_name, borrowing_book_form list_of_bo
 	if (file_pointer == NULL)
 	{
 		cout << "Data failed to load! Closing program..." << "\n";
+		cout << "Error: Can't open file" << "\n";
+		cout << "File name required: " << file_name << "\n";
 		exit(0);
 	}
 
@@ -241,8 +245,8 @@ bool save_all_borrow_forms(const char* file_name, borrowing_book_form list_of_bo
 	return true;
 }
 
-//temp debugger load tool, removed when done
-bool the_bullshiter
+//debugger load tool
+bool load_all_test_data
 (
 	const char* loader_file, 
 	reader list_of_readers[],
@@ -250,8 +254,9 @@ bool the_bullshiter
 	borrowing_book_form list_of_borrow_forms[]
 )
 {
-	cout << "This is a temp function to load ALL test data, any new changes will be overwriten" << "\n";
-	cout << "Press 1 to run this function, anything else to not" << "\n";
+	cout << "- This is a temporary function to load ALL test data, any new changes will be overwriten" << "\n";
+	cout << "- This function will only run ONCE at first launch of the program\n  and can not be run again unless the program is closed and re-opened" << "\n";
+	cout << "- Press 1 to run this function, anything else to not" << "\n";
 	int a = int(_getch() - 48);
 	if (a != 1) return false;
 	
@@ -261,11 +266,11 @@ bool the_bullshiter
 	{
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't open file" << "\n";
+		cout << "File name required: " << loader_file << "\n";
 		exit(0);
 	}
 
 	///////////////////////////////////////
-	cout << "here" << "\n";
 	int i = 0, num = 0, current_number_of_readers = 0;
 	if (fscanf_s(file_pointer, "%d\n", &current_number_of_readers) != 1)
 	{
@@ -298,7 +303,6 @@ bool the_bullshiter
 		i++;
 	}
 	///////////////////////////////////////
-	cout << "here" << "\n";
 	i = 0;
 	num = 0;
 	int current_number_of_books = 0;
@@ -331,7 +335,6 @@ bool the_bullshiter
 	}
 
 	///////////////////////////////////////
-	cout << "here" << "\n";
 	i = 0;
 	num = 0;
 	int current_number_of_forms = 0;
@@ -365,7 +368,6 @@ bool the_bullshiter
 		}
 		i++;
 	}
-	cout << "here" << "\n";
 	fclose(file_pointer);
 	return true;
 }

@@ -200,8 +200,7 @@ void stats_amount_of_readers_sex
 	system("pause");
 }
 
-//enter current date
-//return amount of books being borrowed that are overdue
+//return amount of books being borrowed that are overdue with the current system time
 void stats_amount_of_readers_books_overdue
 (
 	borrowing_book_form list_of_forms_for_borrowing[]

@@ -18,7 +18,8 @@ int main()
 	book_title list_of_books_titles[max_book_title_amount] = {};
 	borrowing_book_form list_of_forms_for_borrowing[max_forms_amount] = {};
 
-	if(the_bullshiter("temp.txt", list_of_readers, list_of_books_titles, list_of_forms_for_borrowing) == false)
+	//debugging function
+	if(load_all_test_data("temp.txt", list_of_readers, list_of_books_titles, list_of_forms_for_borrowing) == false)
 	{
 		load_all_readers("readers_data_1.txt", list_of_readers);
 		load_all_books("books_data_1.txt", list_of_books_titles);
