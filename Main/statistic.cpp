@@ -188,7 +188,7 @@ void stats_amount_of_readers_sex
 			sum_male++;
 			i++;
 		}
-		else
+		else if (list_of_readers[i].sex == '2')
 		{
 			sum_female++;
 			i++;
