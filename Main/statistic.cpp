@@ -129,10 +129,11 @@ void stats_amount_being_borrowed
 	cout << "|                         ~~~ Amount of books currently being borrowed ~~~                          |" << "\n";
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
 	
-	int i = 0, j = 0;
+	int i = 0;
 	while (list_of_forms_for_borrowing[i].borrowed_books_isbn[0][0] != 0)
 	{
-		while (list_of_forms_for_borrowing[i].borrowed_books_isbn[j][0] != 0)
+		int j = 0;
+		while (strcmp(list_of_forms_for_borrowing[i].borrowed_books_isbn[j], "None") != 0)
 		{
 			sum++;
 			j++;
@@ -142,6 +143,7 @@ void stats_amount_being_borrowed
 
 	cout << setw(101) << "|" << "\r| Total amount of books currently being borrowed: " << sum << "\n";
 	cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
+
 	system("pause");
 }
 
@@ -186,13 +188,12 @@ void stats_amount_of_readers_sex
 		if(list_of_readers[i].sex == '1')
 		{
 			sum_male++;
-			i++;
 		}
 		else if (list_of_readers[i].sex == '2')
 		{
-			sum_female++;
-			i++;
+			sum_female++;	
 		}
+		i++;
 	}
 	cout << setw(102) << "|\r" << setw(95) << "|    Total amount of male reader in library: " << sum_male;
 	cout << "\r|   Total amount of female reader in library: " << sum_female << "\n";
