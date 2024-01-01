@@ -103,16 +103,15 @@ void stats_amount_of_books_genre
 			i++;
 		}
 		j++;
-		cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
-		if (list_of_books_titles[j].genre[0] != 0)
+		if (current_genre[0] != 0)
 		{
+			cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
 			cout << setw(101) << "|";
 			cout << "\r" << setw(97) << "|  Total amount of book title by genre: " << current_title_sum;
 			cout << "\r|     Total amount of books by genre: " << current_sum << "\n";
 			cout << "|---------------------------------------------------------------------------------------------------|" << "\n";
 		}
 	}
-	cout << "\x1b[1A                                                                                                     \r";
 	system("pause");
 }
 

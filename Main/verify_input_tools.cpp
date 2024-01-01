@@ -1,5 +1,6 @@
 #include "std_library_used.h"
 #include "prefab_type.h"
+#include "reader_tools.h"
 #include "book_tools.h"
 
 //accept a string holding a date
@@ -34,7 +35,7 @@ bool check_date_validity(char input[])
 
 	if (day < 1 || day > 31) return false;
 	if (month < 1 || month > 12) return false;
-	if (year < 2022 || year > 2023) return false;
+	if (year < 2023 || year > 2024) return false;
 	if (month == 2)
 	{
 		if ((year % 400 == 0 && year % 100 == 0) || year % 4 == 0)
@@ -115,7 +116,7 @@ bool check_birthday_validity(char input[])
 
 	if (day < 1 || day > 31) return false;
 	if (month < 1 || month > 12) return false;
-	if (year < 1995 || year > 2005) return false;
+	if (year < 1995 || year > 2006) return false;
 	if (month == 2)
 	{
 		if ((year % 400 == 0 && year % 100 == 0) || year % 4 == 0)
@@ -131,19 +132,21 @@ bool check_birthday_validity(char input[])
 }
 
 //accept a string holding a citizen ID
-//if a char is not a number or the length is not 12, return false
-bool check_citizenID_validity(char input[])
+//if a char is not a number or the length is not 12 and/or has already existed in the database, return false
+bool check_citizenID_validity(char input[], reader list_of_readers[])
 {
 	if (strlen(input) != 12) return false;
 	for (int i = 0; i < strlen(input); i++)
 	{
 		if (isdigit(input[i]) == false) return false;
 	}
+	int reader_number = find_reader(list_of_readers, input, 0, 0);
+	if (reader_number != -1) return false;
 	return true;
 }
 
 //accept a string holding a book ISBN
-//if a char is not a number or the length is not 13, return false
+//if a char is not a number or the length is not 13 and/or has already existed in the database, return false
 bool check_ISBN_validity(char input[], book_title list_of_book_titles[])
 {
 	if (strlen(input) != 13) return false;

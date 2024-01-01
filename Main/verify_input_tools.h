@@ -7,7 +7,7 @@ bool check_gmail_validity(char input[]);
 bool check_if_input_is_pure_text(char input[]);
 bool check_if_input_is_pure_number(char input[]);
 bool check_birthday_validity(char input[]);
-bool check_citizenID_validity(char input[]);
+bool check_citizenID_validity(char input[], reader list_of_readers[]);
 bool check_date_validity(char input[]);
 bool check_if_no_special_characters(char input[]);
 bool check_within_range(int input, int min, int max);

@@ -154,7 +154,7 @@ bool add_reader
 		//add cit. ID
 		set_cursor_position(0, 3);
 		cout << "|[0]: Return to main menu        |Cit. ID : "; cin.ignore(); cin.getline(input, max_input_length);
-		while (check_citizenID_validity(input) == false)
+		while (check_citizenID_validity(input, list_of_readers) == false)
 		{
 			handle_add_reader_error(0);
 			cin.getline(input, max_input_length);
@@ -377,7 +377,7 @@ bool change_reader_info
 		set_cursor_position(33, 7);
 		cout << "|Prev info: " << list_of_readers[reader_number].citizen_id << "\n"; 
 		cout << "|--------------------------------|New info : "; cin.getline(new_info, max_string_length); 
-		while (check_citizenID_validity(new_info) == false)
+		while (check_citizenID_validity(new_info, list_of_readers) == false)
 		{
 			handle_fix_reader_error(fixing_option); cin.getline(new_info, max_string_length);
 		}
@@ -465,6 +465,7 @@ bool change_reader_info
 	}
 	set_cursor_position(0, 14);
 	cout << "|                                |             ~~~ Information changed successfully ~~~             |";
+	strcpy_s(list_of_readers[reader_number].fine, "None");
 	cin.ignore();
 	return true;
 }

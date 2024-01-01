@@ -15,6 +15,7 @@ void load_all_readers(const char* file_name, reader list_of_readers[])
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't open file" << "\n";
 		cout << "File name required: " << file_name << "\n";
+		cout << "If you want to change the file name/address, it is located at main.cpp line 31-33" << "\n";
 		exit(0);
 	}
 
@@ -61,6 +62,7 @@ void load_all_books(const char* file_name, book_title list_of_book_titles[])
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't open file" << "\n";
 		cout << "File name required: " << file_name << "\n";
+		cout << "If you want to change the file name/address, it is located at main.cpp line 31-33" << "\n";
 		exit(0);
 	}
 
@@ -104,6 +106,7 @@ void load_all_borrow_forms(const char* file_name, borrowing_book_form list_of_bo
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't open file" << "\n";
 		cout << "File name required: " << file_name << "\n";
+		cout << "If you want to change the file name/address, it is located at main.cpp line 31-33" << "\n";
 		exit(0);
 	}
 
@@ -246,6 +249,9 @@ bool save_all_borrow_forms(const char* file_name, borrowing_book_form list_of_bo
 }
 
 //debugger load tool
+//This is a temporary function to load ALL test data, any new changes will be overwriten
+//This function will only run ONCE at first launch of the program and can not be run again unless the program is closed and re-opened
+//Press 1 to run this function, anything else to not
 bool load_all_test_data
 (
 	const char* loader_file, 
@@ -267,6 +273,7 @@ bool load_all_test_data
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't open file" << "\n";
 		cout << "File name required: " << loader_file << "\n";
+		cout << "If you want to change the file name/address, it is located at main.cpp line 22-29" << "\n";
 		exit(0);
 	}
 
