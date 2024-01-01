@@ -16,7 +16,8 @@ void load_all_readers(const char* file_name, reader list_of_readers[])
 		cout << "Error: Can't open file" << "\n";
 		cout << "File name required: " << file_name << "\n";
 		cout << "If you want to change the file name/address, it is located at main.cpp line 31-33" << "\n";
-		exit(0);
+		cin.ignore();
+		return;
 	}
 
 	int i = 0, num = 0, current_number_of_readers = 0;
@@ -24,7 +25,8 @@ void load_all_readers(const char* file_name, reader list_of_readers[])
 	{
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't read amount" << "\n";
-		exit(0);
+		cin.ignore();
+		return;
 	}
 
 	while ((num = fscanf_s(file_pointer, "%8[^,],%12[^,],%20[^,],%30[^,],%c,%10[^,],%75[^,],%100[^,],%10[^,],%10[^,],%4[^.].\n",
@@ -46,7 +48,8 @@ void load_all_readers(const char* file_name, reader list_of_readers[])
 			cout << "Data failed to load! Closing program..." << "\n";
 			cout << "Error: Can't read data" << "\n";
 			cout << num << "\n";
-			exit(0);
+			cin.ignore();
+			return;
 		}
 		i++;
 	}
@@ -63,7 +66,8 @@ void load_all_books(const char* file_name, book_title list_of_book_titles[])
 		cout << "Error: Can't open file" << "\n";
 		cout << "File name required: " << file_name << "\n";
 		cout << "If you want to change the file name/address, it is located at main.cpp line 31-33" << "\n";
-		exit(0);
+		cin.ignore();
+		return;
 	}
 
 	int i = 0, num = 0, current_number_of_books = 0;
@@ -71,7 +75,8 @@ void load_all_books(const char* file_name, book_title list_of_book_titles[])
 	{
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't read amount" << "\n";
-		exit(0);
+		cin.ignore();
+		return;
 	}
 
 	while ((num = fscanf_s(file_pointer, "%13[^,],%100[^,],%50[^,],%50[^,],%4[^,],%30[^,],%4[^,],%4[^.].\n",
@@ -90,7 +95,8 @@ void load_all_books(const char* file_name, book_title list_of_book_titles[])
 			cout << "Data failed to load! Closing program..." << "\n";
 			cout << "Error: Can't read data" << "\n";
 			cout << num << " " << i << "\n";
-			exit(0);
+			cin.ignore();
+			return;
 		}
 		i++;
 	}
@@ -107,7 +113,8 @@ void load_all_borrow_forms(const char* file_name, borrowing_book_form list_of_bo
 		cout << "Error: Can't open file" << "\n";
 		cout << "File name required: " << file_name << "\n";
 		cout << "If you want to change the file name/address, it is located at main.cpp line 31-33" << "\n";
-		exit(0);
+		cin.ignore();
+		return;
 	}
 
 	int i = 0, num = 0, current_number_of_forms = 0;
@@ -115,7 +122,8 @@ void load_all_borrow_forms(const char* file_name, borrowing_book_form list_of_bo
 	{
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't read amount" << "\n";
-		exit(0);
+		cin.ignore();
+		return;
 	}
 
 	while ((num = fscanf_s(file_pointer, "%8[^,],%8[^,],%10[^,],%10[^,],%13[^,],%13[^,],%13[^,],%c,%1[^,],%1[^,],%1[^.].\n",
@@ -137,7 +145,8 @@ void load_all_borrow_forms(const char* file_name, borrowing_book_form list_of_bo
 			cout << "Data failed to load! Closing program..." << "\n";
 			cout << "Error: Can't read data" << "\n";
 			cout << num << " " << i << "\n";
-			exit(0);
+			cin.ignore();
+			return;
 		}
 		i++;
 	}
@@ -274,7 +283,7 @@ bool load_all_test_data
 		cout << "Error: Can't open file" << "\n";
 		cout << "File name required: " << loader_file << "\n";
 		cout << "If you want to change the file name/address, it is located at main.cpp line 22-29" << "\n";
-		exit(0);
+		return false;
 	}
 
 	///////////////////////////////////////
@@ -283,7 +292,7 @@ bool load_all_test_data
 	{
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't read amount reader" << "\n";
-		exit(0);
+		return false;
 	}
 	cout << current_number_of_readers << "\n";
 	while ((num = fscanf_s(file_pointer, "%8[^,],%12[^,],%20[^,],%30[^,],%c,%10[^,],%75[^,],%100[^,],%10[^,],%10[^,],%4[^.].\n",
@@ -305,7 +314,7 @@ bool load_all_test_data
 			cout << "Data failed to load! Closing program..." << "\n";
 			cout << "Error: Can't read data reader" << "\n";
 			cout << num << i << "\n";
-			exit(0);
+			return false;
 		}
 		i++;
 	}
@@ -317,7 +326,7 @@ bool load_all_test_data
 	{
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't read amount book" << "\n";
-		exit(0);
+		return false;
 	}
 	cout << current_number_of_books << "\n";
 	while ((num = fscanf_s(file_pointer, "%13[^,],%100[^,],%50[^,],%50[^,],%4[^,],%30[^,],%4[^,],%4[^.].\n",
@@ -336,7 +345,7 @@ bool load_all_test_data
 			cout << "Data failed to load! Closing program..." << "\n";
 			cout << "Error: Can't read data book" << "\n";
 			cout << num << " " << i << "\n";
-			exit(0);
+			return false;
 		}
 		i++;
 	}
@@ -349,7 +358,7 @@ bool load_all_test_data
 	{
 		cout << "Data failed to load! Closing program..." << "\n";
 		cout << "Error: Can't read amount form" << "\n";
-		exit(0);
+		return false;
 	}
 	cout << current_number_of_forms << "\n";
 	while ((num = fscanf_s(file_pointer, "%8[^,],%8[^,],%10[^,],%10[^,],%13[^,],%13[^,],%13[^,],%c,%1[^,],%1[^,],%1[^.].\n",
@@ -371,7 +380,7 @@ bool load_all_test_data
 			cout << "Data failed to load! Closing program..." << "\n";
 			cout << "Error: Can't read data form" << "\n";
 			cout << num << " " << i << "\n";
-			exit(0);
+			return false;
 		}
 		i++;
 	}
