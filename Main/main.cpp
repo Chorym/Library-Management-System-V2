@@ -19,6 +19,7 @@ int main()
 	borrowing_book_form list_of_forms_for_borrowing[max_forms_amount] = {};
 
 	//debugging function
+	
 	/*
 	if(load_all_test_data("temp.txt", list_of_readers, list_of_books_titles, list_of_forms_for_borrowing) == false)
 	{

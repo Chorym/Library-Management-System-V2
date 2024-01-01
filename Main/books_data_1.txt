@@ -1,5 +1,5 @@
 10
-9780451524935,To Kill a Mockingbird,Harper Lee,J.B. Lippincott & Co.,1960,Fiction,15,10.
+9780451524935,To Kill a Mockingbird,Harper Lee,J.B. Lippincott & Co.,1960,Fiction,15,9.
 9780061120084,1984,George Orwell,Harcourt Brace Jovanovich,1949,Dystopian Fiction,50,8.
 9780142407332,The Giver,Lois Lowry,Houghton Mifflin,1993,Young Adult,99,15.
 9780060929879,The Alchemist,Paulo Coelho,HarperOne,1988,Fiction,30,12.

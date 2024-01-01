@@ -309,6 +309,10 @@ bool borrow_books
 	strcpy_s(list_of_forms_for_borrowing[j].form_id, 9, str_generated_id);
 	set_cursor_position(0, 10);
 	cout << "|                                    |                     ~~~ Form created ~~~                     |" << "\n\n"; //line 10
+	list_of_forms_for_borrowing[j].form_status = '1';
+	strcpy_s(list_of_forms_for_borrowing[j].lost_borrowed_books_isbn[0], "0");
+	strcpy_s(list_of_forms_for_borrowing[j].lost_borrowed_books_isbn[1], "0");
+	strcpy_s(list_of_forms_for_borrowing[j].lost_borrowed_books_isbn[2], "0");
 	cin.ignore();
 	return true;
 }
